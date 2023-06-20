@@ -1,0 +1,123 @@
+[
+  {
+    "CourseName": "Introduction to Machine Learning",
+    "Topics": [
+      {
+        "TopicName": "Pandas & Numpy",
+        "SearchTerms": "PANDAS NUMPY DATA MANIPULATION DATA ANALYSIS ML",
+        "Syllabus": [
+          "1. Handle data in python",
+          "2. Manipulate data frames",
+          "3. Manipulate arrays",
+          "4. Basic statistical analysis"
+        ],
+        "QuizCode": "ML101"
+      },
+      {
+        "TopicName": "Supervised Learning Basics",
+        "SearchTerms": "SUPERVISED LEARNING LINEAR REGRESSION NAIVE BAYES LOGISTIC REGRESSION DECISION TREES ML",
+        "Syllabus": [
+          "1. Linear Regression",
+          "2. Naive Bayes",
+          "3. Logistic Regression",
+          "4. Decision Trees"
+        ],
+        "QuizCode": "ML102"
+      },
+      {
+        "TopicName": "Artificial Neural Networks",
+        "SearchTerms": "ARTIFICIAL NEURAL NETWORKS NEURAL NETWORKS ACTIVATION FUNCTIONS WORD EMBEDDINGS REGULARISATION ML",
+        "Syllabus": [
+          "1. Neural Networks",
+          "2. Activation Functions",
+          "3. Word Embeddings",
+          "4. Regularisation"
+        ],
+        "QuizCode": "ML103"
+      },
+      {
+        "TopicName": "Unsupervised Learning Basics",
+        "SearchTerms": "UNSUPERVISED LEARNING CLUSTERING K-MEANS CLUSTERING PCA HIERARCHICAL CLUSTERING DBSCAN CLUSTERING ML",
+        "Syllabus": [
+          "1. K-Means Clustering",
+          "2. PCA",
+          "3. Hierarchical Clustering",
+          "4. DBSCAN Clustering"
+        ],
+        "QuizCode": "ML104"
+      },
+      {
+        "TopicName": "Computational Linguistics",
+        "SearchTerms": "COMPUTATIONAL LINGUISTICS TEXT ANALYSIS ML",
+        "Syllabus": [
+          "1. Analyse text data"
+        ],
+        "QuizCode": "ML105"
+      },
+      {
+        "TopicName": "Computer Vision",
+        "SearchTerms": "COMPUTER VISION IMAGE CLASSIFICATION ML",
+        "Syllabus": [
+          "1. Classify images"
+        ],
+        "QuizCode": "ML106"
+      }
+    ]
+  },
+  {
+    "CourseName": "Artificial Intelligence",
+    "Topics": [
+      {
+        "TopicName": "Logic Programming",
+        "SearchTerms": "LOGIC PROGRAMMING MATHEMATICAL LOGIC PROPOSITIONAL LOGIC FIRST ORDER LOGIC PROLOG PROGRAMMING ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Mathematical Logic",
+          "2. Propositional Logic",
+          "3. First Order Logic",
+          "4. Prolog Programming"
+        ],
+        "QuizCode": "AI101"
+      },
+      {
+        "TopicName": "Deep Learning",
+        "SearchTerms": "DEEP LEARNING ADVANCED DEEP LEARNING TECHNIQUES ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Advanced Deep Learning techniques"
+        ],
+        "QuizCode": "AI102"
+      },
+      {
+        "TopicName": "Speech Processing",
+        "SearchTerms": "SPEECH PROCESSING SPEECH ANALYSIS ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Analyse speech data"
+        ],
+        "QuizCode": "AI103"
+      },
+      {
+        "TopicName": "Natural Language Processing",
+        "SearchTerms": "NATURAL LANGUAGE PROCESSING NLP TRANSFORMERS GPT ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Transformers and GPT"
+        ],
+        "QuizCode": "AI104"
+      },
+      {
+        "TopicName": "Conversational AI",
+        "SearchTerms": "CONVERSATIONAL AI CHATBOTS ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Build amazing chatbots"
+        ],
+        "QuizCode": "AI105"
+      },
+      {
+        "TopicName": "Generative AI",
+        "SearchTerms": "GENERATIVE AI SYNTHETIC IMAGE GENERATION SYNTHETIC TEXT GENERATION ARTIFICIAL INTELLIGENCE AI",
+        "Syllabus": [
+          "1. Generating synthetic images and texts"
+        ],
+        "QuizCode": "AI106"
+      }
+    ]
+  }
+]
