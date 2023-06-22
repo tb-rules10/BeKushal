@@ -1,3 +1,6 @@
+import 'package:bekushal/BottomNavbar.dart';
+import 'package:bekushal/pages/ExploreScreen.dart';
+import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' as rootBundle;
@@ -185,7 +188,7 @@ class _LBCScreenState extends State<LBCScreen> {
                         },
                       );
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -193,40 +196,54 @@ class _LBCScreenState extends State<LBCScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: SizedBox(
                 height: 15,
               ),
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          selectedItemColor: const Color(0xFF00B0FF),
-          unselectedItemColor: Theme.of(context).colorScheme.outline,
-          selectedLabelStyle: kBottomNavText,
-          unselectedLabelStyle: kBottomNavText,
-          iconSize: 35,
-          elevation: 1.5,
-          onTap: (int index) {
-            setState(() {
-              print(index);
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore_rounded),
-              label: 'Explore',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+        bottomNavigationBar: Hero(
+          tag: "BottomNav",
+          child: BottomNavigationBar(
+            currentIndex: 0,
+            selectedItemColor: const Color(0xFF00B0FF),
+            unselectedItemColor: Theme.of(context).colorScheme.outline,
+            selectedLabelStyle: kBottomNavText,
+            unselectedLabelStyle: kBottomNavText,
+            iconSize: 35,
+            elevation: 1.5,
+            onTap: (int index) {
+              setState(() {
+                if(index == 0) Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        BottomNavbar(pageIndex: index),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                  ),
+                );
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.explore_rounded),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
     );

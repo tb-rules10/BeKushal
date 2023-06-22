@@ -13,38 +13,27 @@ import 'package:google_fonts/google_fonts.dart';
 class BottomNavbar extends StatefulWidget {
   static String id = "BottomNavbar";
 
+  int? pageIndex;
+  BottomNavbar({
+    this.pageIndex,
+  });
   @override
   State<BottomNavbar> createState() => _BottomNavbarState();
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-  int _currentIndex = 1;
+  late int _currentIndex;
   final List<Widget> _screens = [
     HomeScreen(),
     ExploreScreen(),
     SettingsScreen(),
   ];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ]);
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   // Reset the preferred orientations to allow all orientations
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //     DeviceOrientation.landscapeLeft,
-  //     DeviceOrientation.landscapeRight,
-  //   ]);
-  //   super.dispose();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.pageIndex ?? 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +68,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
           iconSize: 35,
           elevation: 1.5,
           onTap: (int index) {
+            if(index == 0 && _currentIndex !=0 && widget.pageIndex!= null) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
             setState(() {
               _currentIndex = index;
             });
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',

@@ -60,9 +60,11 @@ class GoBackButton extends StatelessWidget {
   const GoBackButton({
     super.key,
     this.padding = const EdgeInsets.only(left: 25, top: 25),
+    this.buttonSize = 40,
   });
 
   final EdgeInsets padding;
+  final double buttonSize;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -76,7 +78,7 @@ class GoBackButton extends StatelessWidget {
             child: Icon(
               Icons.arrow_back,
               color: Colors.white,
-              size: 40,
+              size: buttonSize,
             ),
           ),
         ),

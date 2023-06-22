@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:bekushal/BottomNavbar.dart';
+import 'package:bekushal/pages/ExploreScreen.dart';
 import 'package:bekushal/pages/HomeScreen.dart';
 import 'package:bekushal/pages/QuizScreen.dart';
+import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/material.dart';
 import 'constants/theme.dart';
 import 'package:flutter/services.dart';
@@ -21,13 +23,17 @@ class BeKushal extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
+      // theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       // themeMode: ,
-      initialRoute: BottomNavbar.id,
+      initialRoute: QuizScreen.id,
       routes: {
         BottomNavbar.id: (context) => BottomNavbar(),
-        // QuizScreen.id: (context) => QuizScreen(),
+        HomeScreen.id: (context) => HomeScreen(),
+        ExploreScreen.id: (context) => ExploreScreen(),
+        SettingsScreen.id: (context) => SettingsScreen(),
+
+        QuizScreen.id: (context) => QuizScreen(),
 
       },
     );

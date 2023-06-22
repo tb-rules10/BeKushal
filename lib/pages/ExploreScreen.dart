@@ -431,7 +431,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                               width: width,
                                               bgColor: (Theme.of(context).colorScheme.secondary == Colors.black) ? Colors.white : Color(0xff212121),
                                               textColor: Theme.of(context).colorScheme.secondary,
-                                              text: allCourses[index].topics[idx].topicName,
+                                              text: allCourses[index].topics[idx].questionPath,
                                             ),
                                           );
                                         },
