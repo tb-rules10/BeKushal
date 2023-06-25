@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bekushal/BottomNavbar.dart';
 import 'package:bekushal/pages/ExploreScreen.dart';
 import 'package:bekushal/pages/HomeScreen.dart';
+import 'package:bekushal/pages/InstructionScreen.dart';
 import 'package:bekushal/pages/QuizScreen.dart';
 import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 late bool isLoggedIn;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -23,18 +25,17 @@ class BeKushal extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      // darkTheme: AppTheme.darkTheme,
       // themeMode: ,
-      initialRoute: QuizScreen.id,
+      initialRoute: BottomNavbar.id,
       routes: {
         BottomNavbar.id: (context) => BottomNavbar(),
         HomeScreen.id: (context) => HomeScreen(),
         ExploreScreen.id: (context) => ExploreScreen(),
         SettingsScreen.id: (context) => SettingsScreen(),
-
         QuizScreen.id: (context) => QuizScreen(),
-
+        InstructionScreen.id: (context) => InstructionScreen(),
       },
     );
   }

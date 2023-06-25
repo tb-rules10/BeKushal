@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:bekushal/Components/Buttons.dart';
+import 'package:bekushal/constants/quizMap.dart';
 import 'package:bekushal/utils/quizModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class QuizScreen extends StatefulWidget {
   static String id = "QuizScreen";
-  const QuizScreen({super.key});
+  String? quizCode;
+  QuizScreen({
+    this.quizCode,
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -17,8 +19,10 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   late List<Question> allQuestions = [];
   late int questionNumber;
+  late int quizLength;
   String selectedAns = "";
   String? correctAns;
+  String? autoCorrectAns;
   String? inCorrectAns;
   Set<String> isDisabled = <String>{};
   String feedbackText = "";
@@ -26,33 +30,12 @@ class _QuizScreenState extends State<QuizScreen> {
   bool showFeedback = false;
   bool isQuesCompleted = false;
   int tryCount = 0;
-
-  void reset() {
-    feedbackText = "";
-    submitText = "Submit";
-    showFeedback = false;
-    isQuesCompleted = false;
-    tryCount = 0;
-    selectedAns = "";
-    correctAns = null;
-    inCorrectAns = null;
-    isDisabled.clear();
-  }
-
-  Future<void> readData() async {
-    String jsonString = await rootBundle.loadString(
-        'assets/questions/pandas_and_numpy/_questions.json');
-    final jsonData = json.decode(jsonString) as List<dynamic>;
-    allQuestions = jsonData.map<Question>((item) {
-      return Question.fromJson(item);
-    }).toList();
-    print(allQuestions.length);
-    fetchQNUM();
-  }
-
-  Future<void> fetchQNUM() async {
-    questionNumber = 0;
-  }
+  late Color disabledBorderColor;
+  late Color disabledColor;
+  late Color selectedButtonColor;
+  late Color buttonBgColor;
+  late Color incorrectColor;
+  late Color correctColor;
 
   @override
   void initState() {
@@ -63,14 +46,12 @@ class _QuizScreenState extends State<QuizScreen> {
       DeviceOrientation.landscapeLeft,
     ]);
     // Hide the status bar
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   }
 
   @override
   void dispose() {
     SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
@@ -79,93 +60,141 @@ class _QuizScreenState extends State<QuizScreen> {
     super.dispose();
   }
 
+  Future<void> readData() async {
+    print(widget.quizCode);
+    String path = quizCodeMap[widget.quizCode] ?? 'assets/questions/pandas_and_numpy/_questions.json';
+    print(path);
+    print("*********************************");
+    String jsonString = await rootBundle.loadString(path);
+    final jsonData = json.decode(jsonString) as List<dynamic>;
+    setState(() {
+      allQuestions = jsonData.map<Question>((item) {
+        return Question.fromJson(item);
+      }).toList();
+    });
+    quizLength = allQuestions.length;
+    print(quizLength);
+    fetchQNUM();
+  }
+
+  Future<void> fetchQNUM() async {
+    questionNumber = 0;
+  }
+
+
+  void reset() {
+    feedbackText = "";
+    submitText = "Submit";
+    showFeedback = false;
+    isQuesCompleted = false;
+    tryCount = 0;
+    selectedAns = "";
+    correctAns = null;
+    autoCorrectAns = null;
+    inCorrectAns = null;
+    isDisabled.clear();
+  }
+  void manualCorrectOperation(String selectedAns) {
+    submitText = "Next";
+    correctAns = selectedAns;
+    isQuesCompleted = true;
+    isDisabled.addAll(["A", "B", "C", "D"]..remove(selectedAns));
+  }
+  void autoCorrectOperation(String selectedAns) {
+    submitText = "Next";
+    autoCorrectAns = selectedAns;
+    isQuesCompleted = true;
+    isDisabled.addAll(["A", "B", "C", "D"]..remove(selectedAns));
+  }
+  void defineColors(BuildContext context) {
+    disabledBorderColor = Theme.of(context).colorScheme.secondary.withOpacity(0.15);
+    disabledColor = Colors.transparent;
+    correctColor = const Color(0xff00C853);
+    incorrectColor = const Color(0xFFD32F2F);
+    selectedButtonColor = Theme.of(context).colorScheme.tertiary;
+    buttonBgColor = Theme.of(context).colorScheme.secondary == Colors.black ? Colors.white : const Color(0xFF1E1E1E);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    final Color disabledColor = Theme.of(context).colorScheme.secondary.withOpacity(0.1);
-    const Color incorrectColor = Color(0xFFD32F2F);
-    const Color correctColor = Color(0xff00C853);
-    final Color selectedButtonColor = Theme.of(context).colorScheme.tertiary;
-    final Color buttonBgColor = Theme.of(context).colorScheme.secondary == Colors.black ? Colors.white : const Color(0xFF1E1E1E);
+    defineColors(context);
     if (allQuestions.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
     return GestureDetector(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          // backgroundColor: incorrectColor,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          toolbarHeight: height * 0.13,
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(top: 5.0, left: 15.0, right: 25),
-            child: Center(
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Theme
-                                .of(context)
-                                .colorScheme
-                                .tertiary,
-                            size: 35,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            toolbarHeight: height * 0.13,
+            flexibleSpace: Padding(
+              padding: const EdgeInsets.only(top: 5.0, left: 15.0, right: 30),
+              child: Center(
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(context).colorScheme.tertiary,
+                              size: 35,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          "Pandas & Numpy",
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            "Pandas & Numpy",
+                            style: GoogleFonts.inter(
+                                textStyle: TextStyle(
+                                    color: Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .secondary,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600
+                                )
+                            ),
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: showFeedback,
+                        child: Text(
+                          feedbackText,
                           style: GoogleFonts.inter(
                               textStyle: TextStyle(
-                                  color: Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .secondary,
+                                  color: (feedbackText == "Correct")
+                                      ? correctColor : incorrectColor,
+                                  // color: correctColor,
                                   fontSize: 22,
                                   fontWeight: FontWeight.w600
                               )
                           ),
                         ),
-                      ],
-                    ),
-                    Visibility(
-                      maintainSize: true,
-                      maintainAnimation: true,
-                      maintainState: true,
-                      visible: showFeedback,
-                      child: Text(
-                        feedbackText,
-                        style: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                                color: (feedbackText == "Correct")
-                                    ? correctColor : incorrectColor,
-                                // color: correctColor,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600
-                            )
-                        ),
                       ),
-                    ),
-                  ]
+                    ]
+                ),
               ),
             ),
           ),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 5, 25, 20),
+          body: Padding(
+            padding: const EdgeInsets.fromLTRB(25, 5, 25, 20),
             child: Row(
               children: [
                 Expanded(
@@ -173,7 +202,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   child: Image.asset(
                     'assets/questions/${allQuestions[questionNumber]
                         .questionPath}',
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 // SizedBox(
@@ -188,107 +217,14 @@ class _QuizScreenState extends State<QuizScreen> {
                 //     ),
                 //   ),
                 // ),
-                SizedBox(width: 20,),
+                const SizedBox(width: 20,),
                 Expanded(
                   child: Column(
                     children: [
-                      QuizButton(
-                        color: (inCorrectAns == "A")
-                            ? incorrectColor
-                            : (isDisabled.contains("A"))
-                            ? disabledColor
-                            : (correctAns == "A")
-                            ? correctColor
-                            : (selectedAns == "A")
-                            ? selectedButtonColor
-                            : buttonBgColor,
-                        text: "A",
-                        borderColor: (isDisabled.contains("A"))
-                            ? disabledColor
-                            : (correctAns == "A")
-                            ? correctColor
-                            : Theme.of(context).colorScheme.secondary,
-                        onTap: (isDisabled.contains("A"))
-                            ? () {}
-                            : () {
-                          setState(() {
-                            selectedAns = "A";
-                          });
-                        },
-                      ),
-                      QuizButton(
-                        color: (inCorrectAns == "B")
-                            ? incorrectColor
-                            : (isDisabled.contains("B"))
-                            ? disabledColor
-                            : (correctAns == "B")
-                            ? correctColor
-                            : (selectedAns == "B")
-                            ? selectedButtonColor
-                            : buttonBgColor,
-                        text: "B",
-                        borderColor: (isDisabled.contains("B"))
-                            ? disabledColor
-                            : (correctAns == "B")
-                            ? correctColor
-                            : Theme.of(context).colorScheme.secondary,
-                        onTap: (isDisabled.contains("B"))
-                            ? () {}
-                            : () {
-                          setState(() {
-                            selectedAns = "B";
-                          });
-                        },
-                      ),
-                      QuizButton(
-                        color: (inCorrectAns == "C")
-                            ? incorrectColor
-                            : (isDisabled.contains("C"))
-                            ? disabledColor
-                            : (correctAns == "C")
-                            ? correctColor
-                            : (selectedAns == "C")
-                            ? selectedButtonColor
-                            : buttonBgColor,
-                        text: "C",
-                        borderColor: (isDisabled.contains("C"))
-                            ? disabledColor
-                            : (correctAns == "C")
-                            ? correctColor
-                            : Theme.of(context).colorScheme.secondary,
-                        onTap: (isDisabled != null && isDisabled.contains("C"))
-                            ? () {}
-                            : () {
-                          setState(() {
-                            selectedAns = "C";
-                          });
-                        },
-                      ),
-                      QuizButton(
-                        color: (inCorrectAns == "D")
-                            ? incorrectColor
-                            : (isDisabled != null && isDisabled.contains("D"))
-                            ? disabledColor
-                            : (correctAns == "D")
-                            ? correctColor
-                            : (selectedAns == "D")
-                            ? selectedButtonColor
-                            : buttonBgColor,
-                        text: "D",
-                        borderColor: (isDisabled != null &&
-                            isDisabled.contains("D"))
-                            ? disabledColor
-                            : (correctAns == "D")
-                            ? correctColor
-                            : Theme.of(context).colorScheme.secondary,
-                        onTap: (isDisabled != null && isDisabled.contains("D"))
-                            ? () {}
-                            : () {
-                          setState(() {
-                            selectedAns = "D";
-                          });
-                        },
-                      ),
+                      buildQuizButton("A", incorrectColor, disabledColor, disabledBorderColor, correctColor, selectedButtonColor, buttonBgColor, context),
+                      buildQuizButton("B", incorrectColor, disabledColor, disabledBorderColor, correctColor, selectedButtonColor, buttonBgColor, context),
+                      buildQuizButton("C", incorrectColor, disabledColor, disabledBorderColor, correctColor, selectedButtonColor, buttonBgColor, context),
+                      buildQuizButton("D", incorrectColor, disabledColor, disabledBorderColor, correctColor, selectedButtonColor, buttonBgColor, context),
                       const SizedBox(
                         height: 12,
                       ),
@@ -296,7 +232,8 @@ class _QuizScreenState extends State<QuizScreen> {
                         color: selectedButtonColor,
                         text: submitText,
                         borderColor: Colors.transparent,
-                        fontSize: 22,
+                        textColor: Colors.white,
+                        fontSize: (submitText == "Try Again") ? 21 : 22,
                         onTap: isQuesCompleted
                             ? () {
                           setState(() {
@@ -316,25 +253,25 @@ class _QuizScreenState extends State<QuizScreen> {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
-                                  correctAnsOperation(selectedAns);
+                                  manualCorrectOperation(selectedAns);
                                 }
                                 else {
                                   feedbackText = "Incorrect, Try Again";
                                   isDisabled.add(selectedAns);
                                   selectedAns = "";
+                                  // submitText = "Try Again";
                                 }
                               }
                               else {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
-                                  correctAnsOperation(selectedAns);
+                                  manualCorrectOperation(selectedAns);
                                 }
                                 else {
                                   feedbackText = "Incorrect";
                                   isDisabled.add(selectedAns);
-                                  correctAnsOperation(
-                                      allQuestions[questionNumber].answer);
+                                  autoCorrectOperation(allQuestions[questionNumber].answer);
                                   inCorrectAns = selectedAns;
                                 }
                               }
@@ -353,22 +290,48 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  void correctAnsOperation(String selectedAns) {
-    submitText = "Next";
-    correctAns = selectedAns;
-    isQuesCompleted = true;
-    isDisabled.addAll(["A", "B", "C", "D"]..remove(selectedAns));
+  QuizButton buildQuizButton(String buttonText, Color incorrectColor, Color disabledColor, Color disabledBorderColor, Color correctColor, Color selectedButtonColor, Color buttonBgColor, BuildContext context) {
+    return QuizButton(
+                      color: (inCorrectAns == buttonText)
+                          ? incorrectColor
+                          : (isDisabled.contains(buttonText))
+                          ? disabledColor
+                          : (correctAns == buttonText)
+                          ? correctColor
+                          : (selectedAns == buttonText)
+                          ? selectedButtonColor
+                          : buttonBgColor,
+                      text: buttonText,
+                      textColor: (correctAns == buttonText || inCorrectAns == buttonText)
+                          ? Colors.white
+                          : (autoCorrectAns == buttonText)
+                          ? correctColor : null,
+                      borderColor: (isDisabled.contains(buttonText))
+                          ? disabledBorderColor
+                          : (correctAns == buttonText || autoCorrectAns == buttonText)
+                          ? correctColor
+                          : Theme.of(context).colorScheme.secondary,
+                      onTap: (isDisabled.contains(buttonText))
+                          ? () {}
+                          : () {
+                        setState(() {
+                          selectedAns = buttonText;
+                        });
+                      },
+                    );
   }
+
 }
 
 
 class QuizButton extends StatelessWidget {
   const QuizButton({
-    super.key, required this.color, required this.text, required this.borderColor, required this.onTap, this.textStyle, this.fontSize,
+    super.key, required this.color, required this.text, required this.borderColor, required this.onTap, this.textStyle, this.fontSize, this.textColor,
   });
 
   final Color color;
   final Color borderColor;
+  final Color? textColor;
   final String text;
   final VoidCallback onTap;
   final TextStyle? textStyle;
@@ -385,7 +348,7 @@ class QuizButton extends StatelessWidget {
                 color: color,
                 border: Border.all(
                   color: borderColor, // Set the border color
-                  width: 2.0, // Set the border width
+                  width: 1.5, // Set the border width
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -394,6 +357,7 @@ class QuizButton extends StatelessWidget {
                   text,
                   style: textStyle ?? GoogleFonts.outfit(
                     textStyle: TextStyle(
+                      color: textColor,
                       fontSize: fontSize ?? 24,
                       fontWeight: FontWeight.w600,
                     )

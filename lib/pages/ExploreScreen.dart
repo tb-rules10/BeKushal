@@ -81,6 +81,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   @override
   void dispose() async{
     saveRecentSearches();
+
     super.dispose();
   }
 
@@ -96,7 +97,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -167,7 +168,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ),
 
                   Visibility(
-                    visible: (!recentSearches.isEmpty || showResults),
+                    visible: (recentSearches.isNotEmpty || showResults),
                     child: SizedBox(
                       height: (showResults) ? 18 : 15,
                     ),
@@ -431,7 +432,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                               width: width,
                                               bgColor: (Theme.of(context).colorScheme.secondary == Colors.black) ? Colors.white : Color(0xff212121),
                                               textColor: Theme.of(context).colorScheme.secondary,
-                                              text: allCourses[index].topics[idx].questionPath,
+                                              text: allCourses[index].topics[idx].topicName,
                                             ),
                                           );
                                         },

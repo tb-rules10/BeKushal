@@ -30,4 +30,16 @@ flutter:
     - assets/
     - assets/images/
     - assets/data/
+    - assets/questions/
     - assets/questions/pandas_and_numpy/
+    - assets/questions/supervised_learning_basics/
+    - assets/questions/artificial_neural_networks/
+    - assets/questions/unsupervised_learning_basics/
+#    - assets/questions/computational_linguistics/
+#    - assets/questions/computer_vision/
+    - assets/questions/logic_programming/
+#    - assets/questions/deep_learning/
+#    - assets/questions/speech_processing/
+#    - assets/questions/natural_language_processing/
+#    - assets/questions/conversational_ai/
+#    - assets/questions/generative_ai/

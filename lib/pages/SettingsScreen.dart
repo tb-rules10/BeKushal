@@ -22,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
               child: ScreenHeading(heading: 'Settings'),
             ),
             SubHeading(context, 'Account'),

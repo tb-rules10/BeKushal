@@ -1,0 +1,287 @@
+[
+    {
+        "questionNo": "1",
+        "path": "artificial_neural_networks/mcq1.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "2",
+        "path": "artificial_neural_networks/mcq2.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "3",
+        "path": "artificial_neural_networks/mcq3.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "4",
+        "path": "artificial_neural_networks/mcq4.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "5",
+        "path": "artificial_neural_networks/mcq5.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "6",
+        "path": "artificial_neural_networks/mcq6.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "7",
+        "path": "artificial_neural_networks/mcq7.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "8",
+        "path": "artificial_neural_networks/mcq8.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "9",
+        "path": "artificial_neural_networks/mcq9.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "10",
+        "path": "artificial_neural_networks/mcq10.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "11",
+        "path": "artificial_neural_networks/mcq11.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "12",
+        "path": "artificial_neural_networks/mcq12.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "13",
+        "path": "artificial_neural_networks/mcq13.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "14",
+        "path": "artificial_neural_networks/mcq14.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "15",
+        "path": "artificial_neural_networks/mcq15.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "16",
+        "path": "artificial_neural_networks/mcq16.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "17",
+        "path": "artificial_neural_networks/mcq17.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "18",
+        "path": "artificial_neural_networks/mcq18.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "19",
+        "path": "artificial_neural_networks/mcq19.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "20",
+        "path": "artificial_neural_networks/mcq20.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "21",
+        "path": "artificial_neural_networks/mcq21.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "22",
+        "path": "artificial_neural_networks/mcq22.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "23",
+        "path": "artificial_neural_networks/mcq23.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "24",
+        "path": "artificial_neural_networks/mcq24.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "25",
+        "path": "artificial_neural_networks/mcq25.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "26",
+        "path": "artificial_neural_networks/mcq26.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "27",
+        "path": "artificial_neural_networks/mcq27.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "28",
+        "path": "artificial_neural_networks/mcq28.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "29",
+        "path": "artificial_neural_networks/mcq29.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "30",
+        "path": "artificial_neural_networks/mcq30.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "31",
+        "path": "artificial_neural_networks/mcq31.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "32",
+        "path": "artificial_neural_networks/mcq32.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "33",
+        "path": "artificial_neural_networks/mcq33.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "34",
+        "path": "artificial_neural_networks/mcq34.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "35",
+        "path": "artificial_neural_networks/mcq35.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "36",
+        "path": "artificial_neural_networks/mcq36.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "37",
+        "path": "artificial_neural_networks/mcq37.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "38",
+        "path": "artificial_neural_networks/mcq38.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "39",
+        "path": "artificial_neural_networks/mcq39.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "40",
+        "path": "artificial_neural_networks/mcq40.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "41",
+        "path": "artificial_neural_networks/mcq41.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "42",
+        "path": "artificial_neural_networks/mcq42.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "43",
+        "path": "artificial_neural_networks/mcq43.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "44",
+        "path": "artificial_neural_networks/mcq44.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "45",
+        "path": "artificial_neural_networks/mcq45.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "46",
+        "path": "artificial_neural_networks/mcq46.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "47",
+        "path": "artificial_neural_networks/mcq47.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "48",
+        "path": "artificial_neural_networks/mcq48.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "49",
+        "path": "artificial_neural_networks/mcq49.png",
+        "answer": "D"
+    },
+    {
+        "questionNo": "50",
+        "path": "artificial_neural_networks/mcq50.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "51",
+        "path": "artificial_neural_networks/mcq51.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "52",
+        "path": "artificial_neural_networks/mcq52.png",
+        "answer": "C"
+    },
+    {
+        "questionNo": "53",
+        "path": "artificial_neural_networks/mcq53.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "54",
+        "path": "artificial_neural_networks/mcq54.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "55",
+        "path": "artificial_neural_networks/mcq55.png",
+        "answer": "A"
+    },
+    {
+        "questionNo": "56",
+        "path": "artificial_neural_networks/mcq56.png",
+        "answer": "B"
+    },
+    {
+        "questionNo": "57",
+        "path": "artificial_neural_networks/mcq57.png",
+        "answer": "C"
+    }
+]
