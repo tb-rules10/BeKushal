@@ -1,0 +1,53 @@
+{
+  "mentors": [
+    {
+      "name": "Kushal Shah",
+      "position": "Mentor",
+      "image": "assets/images/Kushal_Sir.png"
+    },
+    {
+      "name": "Nishtha Phutela",
+      "position": "Mentor",
+      "image": "assets/images/Nishtha_Mam.png"
+    }
+  ],
+  "developers": [
+    {
+      "name": "Tanishq Bhatt",
+      "position": "Flutter Developer",
+      "image": "assets/images/Unknown.jpg"
+    },
+    {
+      "name": "Aksh Gupta",
+      "position": "Flutter Developer",
+      "image": "assets/images/Unknown.jpg"
+    },
+    {
+      "name": "Arham Alam",
+      "position": "Flutter Developer",
+      "image": "assets/images/Unknown.jpg"
+    },
+    {
+      "name": "Shreya Rustagi",
+      "position": "Flutter Developer",
+      "image": "assets/images/Unknown.jpg"
+    },
+    {
+      "name": "Subhranshu Behura",
+      "position": "Flutter Developer",
+      "image": "assets/images/Unknown.jpg"
+    }
+  ],
+  "futureDevelopers": [
+    {
+      "name": "Future",
+      "position": "Future",
+      "image": "assets/images/Unknown.jpg"
+    },
+    {
+      "name": "Future",
+      "position": "Future",
+      "image": "assets/images/Unknown.jpg"
+    }
+  ]
+}

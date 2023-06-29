@@ -16,12 +16,21 @@ dependencies:
   flutter_icons: ^1.1.0
   shared_preferences: ^2.1.2
   flutter_switch: ^0.3.2
+  dots_indicator: ^3.0.0
+  provider: ^6.0.5
+  image_picker: ^1.0.0
+  dropdown_button2: ^2.1.4
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 flutter:
   uses-material-design: true
@@ -30,6 +39,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/data/
+    - assets/gif/
     - assets/questions/
     - assets/questions/pandas_and_numpy/
     - assets/questions/supervised_learning_basics/

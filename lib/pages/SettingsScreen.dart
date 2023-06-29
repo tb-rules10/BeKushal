@@ -1,3 +1,5 @@
+import 'package:bekushal/pages/OnboardingScreens/DisplayInfo.dart';
+import 'package:bekushal/pages/OtherScreens/OutTeamScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,8 +28,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ScreenHeading(heading: 'Settings'),
             ),
             SubHeading(context, 'Account'),
-            Tile(context, 'Edit Profile', () {
-              print('Callback function called!');
+            Tile(context, 'Profile', () {
+              Navigator.pushNamed(context, DisplayInfo.id);
             },
                 Icon(
                   Icons.arrow_forward_ios,
@@ -49,10 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.w600)),
                 )),
-            Tile(
-              context,
-              'Terms of Use',
-              () {
+            Tile(context, 'Terms of Use', () {
                 print('Callback function called!');
               },
               null,
@@ -61,7 +60,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               print('Callback function called!');
             }, null),
             Tile(context, 'Our Team', () {
-              print('Callback function called!');
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      OurTeamScreen(),
+                ),
+              );
             },
                 Icon(
                   Icons.arrow_forward_ios,
@@ -75,19 +83,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.secondary,
                 )),
+            const SizedBox(
+              height: 25,
+            )
           ]),
         ),
       ),
     );
   }
-  Padding Tile(BuildContext context, String text, Function callback, var trailingItem) {
+
+  Padding Tile(
+      BuildContext context, String text, Function callback, var trailingItem) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0.7),
       child: Container(
           height: height * 0.07,
-          color: (Theme.of(context).colorScheme.secondary == Colors.black) ? Colors.white : Color(0xff212121),
+          color: (Theme.of(context).colorScheme.secondary == Colors.black)
+              ? Colors.white
+              : Color(0xff212121),
           child: GestureDetector(
             onTap: () => callback(),
             child: ListTile(
@@ -109,6 +124,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           )),
     );
   }
+
   Column SubHeading(BuildContext context, String text) {
     return Column(
       children: [
@@ -148,13 +164,12 @@ class _SwitchExampleState extends State<SwitchExample> {
   @override
   Widget build(BuildContext context) {
     final MaterialStateProperty<Color?> trackColor =
-    MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
+        MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
         // Track color when the switch is selected.
         if (light) {
           return Color(0xFF00B0FF).withOpacity(0.4);
-        }
-        else if (!light) {
+        } else if (!light) {
           return Colors.transparent.withOpacity(0.2);
         }
         return null;

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:google_fonts/google_fonts.dart';
-import '../Components/Buttons.dart';
-import '../constants/textStyles.dart';
-import '../utils/lbcModel.dart';
+import '../../Components/Buttons.dart';
+import '../../constants/textStyles.dart';
+import '../../utils/lbcModel.dart';
 
 class LBCScreen extends StatefulWidget {
   static String id = "LBCScreen";

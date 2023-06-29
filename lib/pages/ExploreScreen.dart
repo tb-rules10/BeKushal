@@ -54,7 +54,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> data = [];
     for(var search in recentSearches){
-
       data.add(jsonEncode(search));
     }
     prefs.setStringList('recentSearches', data);
@@ -108,6 +107,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   SizedBox(height: 5,),
                   TextField(
                     controller: myController,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                     decoration: InputDecoration(
                       hintText: "What are you looking for ?",
                       contentPadding: const EdgeInsets.symmetric(horizontal: 30.0,vertical: 12.0),
@@ -155,6 +157,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ),
                     ),
                     onSubmitted: (query) async {
+                    // onChanged: (query) async {
                       setState(() {
                         if(query == "" || query.trimLeft() == ""){
                           showResults = false;
@@ -186,7 +189,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           return GestureDetector(
                             onTap: (){
                               setState(() {
-                                recentSearches.insert(0, Topics.copy(searchResults[idx]));
+                                if(recentSearches.contains(searchResults[idx])){
+                                  recentSearches.remove(searchResults[idx]);
+                                }
+                                recentSearches.insert(0, searchResults[idx]);
                               });
                               showModalBottomSheet(
                                   context: context,
@@ -377,7 +383,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       future: readData(),
                       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                         return ListView.builder(
-                            physics: ClampingScrollPhysics(),
+                            physics: const ClampingScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: allCourses.length,
                             itemBuilder: (context, index) {
@@ -411,6 +417,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                       height: 140,
                                       width: width,
                                       child: ListView.builder(
+                                        physics: const ClampingScrollPhysics(),
                                         scrollDirection: Axis.horizontal,
                                         itemCount : allCourses[index].topics.length,
                                         itemBuilder: (BuildContext context, int idx) {

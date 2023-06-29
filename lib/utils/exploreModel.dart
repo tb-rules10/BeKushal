@@ -22,14 +22,16 @@ class Topics {
   final String searchTerms;
   final String quizCode;
   final List<String> syllabus;
+  final bool comingSoon;
 
-  Topics({required this.searchTerms,required this.topicName, required this.syllabus, required this.quizCode});
+  Topics({required this.searchTerms,required this.topicName, required this.syllabus, required this.quizCode, required this.comingSoon});
 
   Topics.copy(Topics other)
       : topicName = other.topicName,
         searchTerms = other.searchTerms,
         quizCode = other.quizCode,
-        syllabus = other.syllabus;
+        syllabus = other.syllabus,
+        comingSoon = other.comingSoon;
 
   factory Topics.fromJson(Map<String, dynamic> json) {
     return Topics(
@@ -37,6 +39,7 @@ class Topics {
       searchTerms: json["SearchTerms"],
       quizCode: json["QuizCode"],
       syllabus: json["Syllabus"].map<String>((e) =>  e.toString()).toList(),
+      comingSoon: json["ComingSoon"],
     );
   }
 
@@ -45,6 +48,7 @@ class Topics {
         "TopicName": topicName,
         "SearchTerms": searchTerms,
         "Syllabus": syllabus,
-        "QuizCode": quizCode
+        "QuizCode": quizCode,
+        "ComingSoon": comingSoon,
       };
 }

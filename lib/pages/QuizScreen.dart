@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bekushal/constants/quizMap.dart';
+import 'package:bekushal/pages/OtherScreens/QuizCompletedScreen.dart';
 import 'package:bekushal/utils/quizModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,9 +18,14 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
+  late final List<String> quizData;
   late List<Question> allQuestions = [];
   late int questionNumber;
   late int quizLength;
+  late int maxMarks;
+  int marksCounter = 0;
+  late double finalScore;
+  bool isQuizCompleted = false;
   String selectedAns = "";
   String? correctAns;
   String? autoCorrectAns;
@@ -40,31 +46,31 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      quizData = quizCodeMap[widget.quizCode] ?? ["Pandas & Numpy", 'assets/questions/pandas_and_numpy/_questions.json'];
+    });
     readData();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    // Hide the status bar
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   }
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    // Restore the status bar when the screen is disposed
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    if(!isQuizCompleted){
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    }
     super.dispose();
   }
 
   Future<void> readData() async {
-    print(widget.quizCode);
-    String path = quizCodeMap[widget.quizCode] ?? 'assets/questions/pandas_and_numpy/_questions.json';
-    print(path);
-    print("*********************************");
+    String path = quizData[1] ?? 'assets/questions/pandas_and_numpy/_questions.json';
     String jsonString = await rootBundle.loadString(path);
     final jsonData = json.decode(jsonString) as List<dynamic>;
     setState(() {
@@ -72,7 +78,9 @@ class _QuizScreenState extends State<QuizScreen> {
         return Question.fromJson(item);
       }).toList();
     });
-    quizLength = allQuestions.length;
+    // quizLength = allQuestions.length;
+    quizLength = 5;
+    maxMarks = quizLength * 4;
     print(quizLength);
     fetchQNUM();
   }
@@ -113,6 +121,9 @@ class _QuizScreenState extends State<QuizScreen> {
     incorrectColor = const Color(0xFFD32F2F);
     selectedButtonColor = Theme.of(context).colorScheme.tertiary;
     buttonBgColor = Theme.of(context).colorScheme.secondary == Colors.black ? Colors.white : const Color(0xFF1E1E1E);
+  }
+  void calculateScore() {
+    finalScore = (marksCounter*100)/maxMarks;
   }
 
 
@@ -156,7 +167,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             width: 15,
                           ),
                           Text(
-                            "Pandas & Numpy",
+                            quizData[0],
                             style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                     color: Theme
@@ -236,11 +247,35 @@ class _QuizScreenState extends State<QuizScreen> {
                         fontSize: (submitText == "Try Again") ? 21 : 22,
                         onTap: isQuesCompleted
                             ? () {
-                          setState(() {
-                            reset();
-                            questionNumber ++;
-                          });
+                          print("marks - " +  marksCounter.toString());
+                          questionNumber ++;
+                          if(questionNumber<quizLength){
+                            setState(() {
+                              reset();
+                              questionNumber;
+                            });
+                          }
+                          else{
+                            setState(() {
+                              isQuizCompleted = true;
+                              calculateScore();
+                            });
+                            Navigator.pushReplacement(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) =>
+                                    QuizCompletedScreen(
+                                      finalScore: finalScore,
+                                    ),
+                                transitionsBuilder:
+                                    (context, animation, secondaryAnimation, child) {
+                                  return FadeTransition(opacity: animation, child: child);
+                                },
+                              ),
+                            );
+                          }
                         }
+
                             : () {
                           setState(() {
                             showFeedback = true;
@@ -253,6 +288,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
+                                  marksCounter += 4;
                                   manualCorrectOperation(selectedAns);
                                 }
                                 else {
@@ -266,6 +302,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
+                                  marksCounter += 2;
                                   manualCorrectOperation(selectedAns);
                                 }
                                 else {
@@ -311,7 +348,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           : (correctAns == buttonText || autoCorrectAns == buttonText)
                           ? correctColor
                           : Theme.of(context).colorScheme.secondary,
-                      onTap: (isDisabled.contains(buttonText))
+                      onTap: (isDisabled.contains(buttonText) || autoCorrectAns == buttonText)
                           ? () {}
                           : () {
                         setState(() {

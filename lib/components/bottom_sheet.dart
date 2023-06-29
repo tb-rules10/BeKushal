@@ -1,4 +1,4 @@
-import 'package:bekushal/pages/InstructionScreen.dart';
+import 'package:bekushal/pages/OtherScreens/InstructionScreen.dart';
 import 'package:bekushal/pages/QuizScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,14 +61,14 @@ class BottomSheetMenu extends StatelessWidget {
                           selectedTopic.topicName,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.outfit(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Padding(
@@ -77,7 +77,7 @@ class BottomSheetMenu extends StatelessWidget {
                           width: width,
                           height: 1,
                           color: Colors.grey,
-                          child: Divider(
+                          child: const Divider(
                             color: Colors.transparent,
                           ),
                         ),
@@ -161,22 +161,22 @@ class BottomSheetMenu extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     width: width*0.65,
                     height: height*0.07,
-                    title: "Start Quiz",
+                    title: (selectedTopic.comingSoon) ? "Coming Soon" : "Start Quiz",
                     textStyle: GoogleFonts.outfit(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.w500
                       ),
                     ),
                     borderRadius: 10,
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                    onPressed: (){
+                    backgroundColor: (selectedTopic.comingSoon) ? const Color(0xff828282) : Theme.of(context).colorScheme.tertiary,
+                    onPressed: (selectedTopic.comingSoon) ? (){} :(){
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) =>
-                              QuizScreen(quizCode: selectedTopic.quizCode,),
+                              InstructionScreen(quizCode: selectedTopic.quizCode,),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                             return FadeTransition(opacity: animation, child: child);

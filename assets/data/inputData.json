@@ -11,7 +11,8 @@
           "3. Manipulate arrays",
           "4. Basic statistical analysis"
         ],
-        "QuizCode": "ML101"
+        "QuizCode": "ML101",
+        "ComingSoon": false
       },
       {
         "TopicName": "Supervised Learning Basics",
@@ -22,7 +23,8 @@
           "3. Logistic Regression",
           "4. Decision Trees"
         ],
-        "QuizCode": "ML102"
+        "QuizCode": "ML102",
+        "ComingSoon": false
       },
       {
         "TopicName": "Artificial Neural Networks",
@@ -33,7 +35,8 @@
           "3. Word Embeddings",
           "4. Regularisation"
         ],
-        "QuizCode": "ML103"
+        "QuizCode": "ML103",
+        "ComingSoon": false
       },
       {
         "TopicName": "Unsupervised Learning Basics",
@@ -44,7 +47,8 @@
           "3. Hierarchical Clustering",
           "4. DBSCAN Clustering"
         ],
-        "QuizCode": "ML104"
+        "QuizCode": "ML104",
+        "ComingSoon": false
       },
       {
         "TopicName": "Computational Linguistics",
@@ -52,7 +56,8 @@
         "Syllabus": [
           "1. Analyse text data"
         ],
-        "QuizCode": "ML105"
+        "QuizCode": "ML105",
+        "ComingSoon": true
       },
       {
         "TopicName": "Computer Vision",
@@ -60,7 +65,8 @@
         "Syllabus": [
           "1. Classify images"
         ],
-        "QuizCode": "ML106"
+        "QuizCode": "ML106",
+        "ComingSoon": true
       }
     ]
   },
@@ -76,7 +82,8 @@
           "3. First Order Logic",
           "4. Prolog Programming"
         ],
-        "QuizCode": "AI101"
+        "QuizCode": "AI101",
+        "ComingSoon": false
       },
       {
         "TopicName": "Deep Learning",
@@ -84,7 +91,8 @@
         "Syllabus": [
           "1. Advanced Deep Learning techniques"
         ],
-        "QuizCode": "AI102"
+        "QuizCode": "AI102",
+        "ComingSoon": true
       },
       {
         "TopicName": "Speech Processing",
@@ -92,7 +100,8 @@
         "Syllabus": [
           "1. Analyse speech data"
         ],
-        "QuizCode": "AI103"
+        "QuizCode": "AI103",
+        "ComingSoon": true
       },
       {
         "TopicName": "Natural Language Processing",
@@ -100,7 +109,8 @@
         "Syllabus": [
           "1. Transformers and GPT"
         ],
-        "QuizCode": "AI104"
+        "QuizCode": "AI104",
+        "ComingSoon": true
       },
       {
         "TopicName": "Conversational AI",
@@ -108,7 +118,8 @@
         "Syllabus": [
           "1. Build amazing chatbots"
         ],
-        "QuizCode": "AI105"
+        "QuizCode": "AI105",
+        "ComingSoon": true
       },
       {
         "TopicName": "Generative AI",
@@ -116,7 +127,8 @@
         "Syllabus": [
           "1. Generating synthetic images and texts"
         ],
-        "QuizCode": "AI106"
+        "QuizCode": "AI106",
+        "ComingSoon": true
       }
     ]
   }
