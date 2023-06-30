@@ -6,12 +6,14 @@ import 'dart:convert';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:google_fonts/google_fonts.dart';
 import '../../Components/Buttons.dart';
+import '../../components/bottom_sheet.dart';
 import '../../constants/textStyles.dart';
+import '../../utils/exploreModel.dart';
 import '../../utils/lbcModel.dart';
 
 class LBCScreen extends StatefulWidget {
   static String id = "LBCScreen";
-  int courseID;
+  late int courseID;
 
   LBCScreen({super.key, required this.courseID});
 
@@ -20,9 +22,27 @@ class LBCScreen extends StatefulWidget {
 }
 
 class _LBCScreenState extends State<LBCScreen> {
+  List<Course> allCourses = [];
+  List<Topics> allTopics = [];
+
+  Future<void> readData() async {
+    String jsonString =
+        await rootBundle.rootBundle.loadString('assets/data/inputData.json');
+    List<Topics> topics = [];
+    final jsonData = json.decode(jsonString) as List<dynamic>;
+    allCourses = jsonData.map<Course>((item) {
+      var course = Course.fromJson(item);
+      course.topics.forEach((element) {
+        topics.add(element);
+      });
+      return course;
+    }).toList();
+    allTopics = topics;
+  }
 
   Future<List<LbcDataModel>> ReadJsonData() async {
-    final jsondata = await rootBundle.rootBundle.loadString('assets/data/inputData.json');
+    final jsondata =
+        await rootBundle.rootBundle.loadString('assets/data/inputData.json');
     final list = json.decode(jsondata) as List<dynamic>;
 
     return list.map((e) => LbcDataModel.fromJson(e)).toList();
@@ -125,73 +145,75 @@ class _LBCScreenState extends State<LBCScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: FutureBuilder<List<LbcDataModel>>(
-                  future: ReadJsonData(),
+                child: FutureBuilder(
+                  future: readData(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error: ${snapshot.error}'),
-                      );
-                    } else if (snapshot.hasData) {
-                      var items = snapshot.data!;
-                      var courses = items[widget.courseID].topics;
-                      return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: courses!.length,
-                        itemBuilder: (context, courseIndex) {
-                          var course = courses[courseIndex];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            child: Card(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: SizedBox(
-                                  child: ListTile(
-                                    title: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 25),
-                                          child: Text(
-                                            course.topicName!,
-                                            style: GoogleFonts.inter(
-                                              textStyle: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                // color: Colors.white,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
-                                              ),
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: allCourses[widget.courseID].topics.length,
+                      itemBuilder: (context, courseIndex) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Card(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: SizedBox(
+                                child: ListTile(
+                                  title: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 25),
+                                        child: Text(
+                                          allCourses[widget.courseID]
+                                              .topics[courseIndex]
+                                              .topicName,
+                                          style: GoogleFonts.inter(
+                                            textStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              // color: Colors.white,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                             ),
                                           ),
-                                        )),
-                                    trailing: ElevatedButton(
-                                        onPressed: () {},
-                                        style: ElevatedButton.styleFrom(
-                                          elevation: 0,
-                                          fixedSize: const Size(50, 50),
-                                          shape: const CircleBorder(),
-                                          backgroundColor: Color(0xffEAF0F9),
                                         ),
-                                        child: Icon(
-                                          Icons.arrow_forward_sharp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .tertiary,
-                                        )),
-                                  ),
-                                )),
-                          );
-                        },
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+                                      )),
+                                  trailing: ElevatedButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Colors.transparent,
+                                            builder: (context) {
+                                              return BottomSheetMenu(
+                                                height: height,
+                                                width: width,
+                                                selectedTopic:
+                                                    allCourses[widget.courseID]
+                                                        .topics[courseIndex],
+                                              );
+                                            });
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        fixedSize: const Size(50, 50),
+                                        shape: const CircleBorder(),
+                                        backgroundColor: Color(0xffEAF0F9),
+                                      ),
+                                      child: Icon(
+                                        Icons.arrow_forward_sharp,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                      )),
+                                ),
+                              )),
+                        );
+                      },
+                    );
                   },
                 ),
               ),
@@ -215,7 +237,7 @@ class _LBCScreenState extends State<LBCScreen> {
             elevation: 1.5,
             onTap: (int index) {
               setState(() {
-                if(index == 0) Navigator.pop(context);
+                if (index == 0) Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
