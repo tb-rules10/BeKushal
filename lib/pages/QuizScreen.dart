@@ -70,7 +70,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<void> readData() async {
-    String path = quizData[1] ?? 'assets/questions/pandas_and_numpy/_questions.json';
+    String path = quizData[1];
     String jsonString = await rootBundle.loadString(path);
     final jsonData = json.decode(jsonString) as List<dynamic>;
     setState(() {
