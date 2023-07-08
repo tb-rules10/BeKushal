@@ -1,4 +1,5 @@
 import 'package:bekushal/constants/textStyles.dart';
+import 'package:bekushal/pages/OnboardingScreens/UserForm.dart';
 import 'package:bekushal/pages/OtherScreens/LBCScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String _profilePicturePath = '';
   String _name = '';
   String username = "Yoru";
+  int streakDays = 0;
+
   // String photoUrl = "https://dotesports.com/wp-content/uploads/2021/01/12162418/Yoru.png";
 
   Future<void> getDetails() async{
@@ -34,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
       int index = name.indexOf(" ");
       if(index!=-1) name =  name.substring(0, name.indexOf(" "));
       _name = name;
+
+      var streakDays = prefs.getInt('streak');
+      context.read<UserProvider>().setStreak(streakDays!);
+
   }
 
   @override
@@ -135,11 +142,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          BlueButton(
-                            imageIcon: "assets/images/fire.png",
-                            smallText: "Daily Streak",
-                            boldText: "0 days",
-                          ),
+                            Expanded(
+                              child: Consumer<UserProvider>(
+                              builder: (context,userProvider, _) {
+                              return BlueButton(
+                              imageIcon: "assets/images/fire.png",
+                              smallText: "Daily Streak",
+                                boldText: "${userProvider.streak} days",
+                              );
+                            },
+                          ), ),
                           VerticalDivider(
                             color: Colors.white,
                             thickness: 1.5,

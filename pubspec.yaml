@@ -13,7 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.5
   google_fonts: ^4.0.4
-  flutter_icons: ^1.1.0
+#  flutter_icons: ^1.1.0
   shared_preferences: ^2.1.2
   flutter_switch: ^0.3.2
   dots_indicator: ^3.0.0

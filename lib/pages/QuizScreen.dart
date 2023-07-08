@@ -5,6 +5,10 @@ import 'package:bekushal/utils/quizModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'OnboardingScreens/UserForm.dart';
 
 class QuizScreen extends StatefulWidget {
   static String id = "QuizScreen";
@@ -42,6 +46,7 @@ class _QuizScreenState extends State<QuizScreen> {
   late Color buttonBgColor;
   late Color incorrectColor;
   late Color correctColor;
+  bool _hasLoggedInToday = false;
 
   @override
   void initState() {
@@ -125,6 +130,45 @@ class _QuizScreenState extends State<QuizScreen> {
   void calculateScore() {
     finalScore = (marksCounter*100)/maxMarks;
   }
+
+  Future<void> maintainStreak() async {
+
+    var prefs = await SharedPreferences.getInstance();
+
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    int? currentStreak = userProvider.streak;
+    int newStreak = currentStreak! + 1;
+    userProvider.setStreak(newStreak);
+
+    await prefs.setInt('streak',newStreak);
+  }
+
+  Future<void> _checkLoginStreak() async {
+
+    var prefs = await SharedPreferences.getInstance();
+
+    final lastLoginDate = prefs.getString('lastLoginDate');
+    final today = DateTime.now();
+
+    if (lastLoginDate != null) {
+      final lastLoginDateTime = DateTime.parse(lastLoginDate);
+      final isSameDay = lastLoginDateTime.year == today.year &&
+          lastLoginDateTime.month == today.month &&
+          lastLoginDateTime.day == today.day;
+
+      if (isSameDay) {
+        setState(() {
+          _hasLoggedInToday = true;
+        });
+      }
+    }
+
+    if (!_hasLoggedInToday) {
+      prefs.setString('lastLoginDate', today.toIso8601String());
+      maintainStreak();
+    }
+  }
+
 
 
   @override
@@ -289,6 +333,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
                                   marksCounter += 4;
+                                  _checkLoginStreak();
                                   manualCorrectOperation(selectedAns);
                                 }
                                 else {
