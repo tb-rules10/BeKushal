@@ -89,6 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
     _profilePicturePath = prefs.getString('profilePicturePath') ?? '';
     _name = prefs.getString('name') ?? '';
 
+    _checkLoginStreak();
+    var streakDays = prefs.getInt('streak');
+    context.read<UserProvider>().setStreak(streakDays!);
+    var attempt = prefs.getInt('attempted');
+    context.read<UserProvider>().setAttempted(attempt!);
 
     context.read<UserProvider>().setName(_name);
 
