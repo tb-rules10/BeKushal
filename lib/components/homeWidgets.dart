@@ -23,9 +23,9 @@ class BlueButton extends StatelessWidget {
           children: [
             Image.asset(
               imageIcon,
-              height: 35,
+              height: 46,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
@@ -36,7 +36,7 @@ class BlueButton extends StatelessWidget {
                   smallText,
                   style: kBlueBtnLight,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Text(
@@ -78,6 +78,13 @@ class CoursesButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+              BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ), ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -85,19 +92,19 @@ class CoursesButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 15.0),
                   child: Text(
                     course,
                     style: GoogleFonts.outfit(
-                      textStyle: TextStyle(
-                          fontSize: 22,
+                      textStyle: const TextStyle(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white
                       ),
                     ),
                   ),
                 ),
-                Row(
+                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -107,25 +114,18 @@ class CoursesButton extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Number of Topics",
-                              style: kPinkBtnLight,
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              topics,
-                              style: kPinkBtnBold,
-                            )
+                            // Text(
+                            //   "${topics}  Topics",
+                            //   style: kPinkBtnLight,
+                            // ),
                           ],
                         ),
                       ],
-                    ),
+                    ), // Convert degrees to radians
                     Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.white,
-                    ),
+                        Icons.arrow_forward_rounded,
+                        color: Colors.white,
+                      ),
                   ],
                 )
               ],

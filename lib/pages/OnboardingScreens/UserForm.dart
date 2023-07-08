@@ -13,6 +13,7 @@ class UserProvider extends ChangeNotifier {
   String? _occupation;
   String? _gender;
   int? _streak = 0;
+  int? _attempted = 0;
 
   String? get name => _name;
   String? get email => _email;
@@ -20,6 +21,7 @@ class UserProvider extends ChangeNotifier {
   String? get occupation => _occupation;
   String? get gender => _gender;
   int? get streak => _streak;
+  int? get attempted => _attempted;
 
   void setName(String name) {
     _name = name;
@@ -51,12 +53,18 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setAttempted(int attempted) {
+    _attempted = attempted;
+    notifyListeners();
+  }
+
   void deleteUserInformation() {
     _name = null;
     _email = null;
     _mobileNumber = null;
     _occupation = null;
     _streak = 0;
+    _attempted = 0;
     notifyListeners();
   }
 }
@@ -78,6 +86,7 @@ class _UserFormState extends State<UserForm> {
   late String name,email,gender='other',occupation,mobileNumber;
   late DateTime dateOfBirth;
   late int streak = 0;
+  late int attempted = 0;
 
   @override
   void initState() {
@@ -98,6 +107,7 @@ class _UserFormState extends State<UserForm> {
       await prefs.setString('occupation',occupation);
       await prefs.setString('gender',gender);
       await prefs.setInt('streak',0);
+      await prefs.setInt('attempted',0);
 
       context.read<UserProvider>().setName(name);
       context.read<UserProvider>().setEmail(email);
@@ -105,6 +115,7 @@ class _UserFormState extends State<UserForm> {
       context.read<UserProvider>().setOccupation(occupation);
       context.read<UserProvider>().setGender(gender);
       context.read<UserProvider>().setStreak(streak);
+      context.read<UserProvider>().setAttempted(attempted);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

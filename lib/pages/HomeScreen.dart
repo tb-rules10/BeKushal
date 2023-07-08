@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:bekushal/constants/textStyles.dart';
 import 'package:bekushal/pages/OnboardingScreens/UserForm.dart';
 import 'package:bekushal/pages/OtherScreens/LBCScreen.dart';
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/drop_down.dart';
 import '../components/homeWidgets.dart';
 import 'OnboardingScreens/DisplayInfo.dart';
+import 'OnboardingScreens/ProfilePic.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "HomeScreen";
@@ -20,12 +22,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late SharedPreferences prefs;
-  String _profilePicturePath = '';
+  late String _profilePicturePath;
   String _name = '';
   String username = "Yoru";
   int streakDays = 0;
 
   // String photoUrl = "https://dotesports.com/wp-content/uploads/2021/01/12162418/Yoru.png";
+
+  @override
+  void initState() {
+    super.initState();
+    initializePreferences();
+  }
 
   Future<void> getDetails() async{
       // username = username ?? "Yoru";
@@ -40,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _checkLoginStreak();
       var streakDays = prefs.getInt('streak');
       context.read<UserProvider>().setStreak(streakDays!);
-
+      var attempt = prefs.getInt('attempted');
+      context.read<UserProvider>().setAttempted(attempt!);
   }
 
   bool _hasLoggedInToday = false;
@@ -73,6 +82,26 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> initializePreferences() async {
+    prefs = await SharedPreferences.getInstance();
+
+    _profilePicturePath = prefs.getString('profilePicturePath') ?? '';
+    _name = prefs.getString('name') ?? '';
+
+    String firstName = '';
+
+    if (_name.isNotEmpty) {
+      List<String> nameParts = _name.split(' ');
+      firstName = nameParts.first;
+    }
+
+    context.read<UserProvider>().setName(firstName.trim());
+
+    if (_profilePicturePath.isNotEmpty) {
+      context.read<PicProvider>().setImageFile(File(_profilePicturePath));
+      setState(() { });}
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -87,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Container(
                   height: 80,
-                  // color: Colors.red,
+                  padding: EdgeInsets.zero,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,19 +125,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          FutureBuilder(
-                            future: getDetails(),
-                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                          Consumer<UserProvider>(
+                            builder: (context,userProvider,_) {
                               return Container(
-                                width: width*0.73,
+                                width: width*0.70,
+                                padding: EdgeInsets.zero,
                                 child: FittedBox(
+                                  alignment: Alignment.centerLeft,
                                   fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    "Welcome, $_name!",
+                                  child: Text("Welcome, ${userProvider.name}!",
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.outfit(
                                       textStyle: TextStyle(
-                                        fontSize: 32,
+                                        fontSize: 28,
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context).colorScheme.secondary,
                                       ),
@@ -123,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                               "Let's dive into learning",
+                              textAlign: TextAlign.left,
                               style: GoogleFonts.outfit(
                                   textStyle: TextStyle(
                                     fontSize: 16,
@@ -134,19 +164,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: (){
                           Navigator.pushNamed(context, DisplayInfo.id);
                         },
-                        child: FutureBuilder(
-                          future: getDetails(),
-                          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                            return Visibility(
-                              maintainSize: true,
-                              maintainAnimation: true,
-                              maintainState: true,
-                              visible: false,
-                              child: CircleAvatar(
-                                radius: 28,
-                                backgroundImage: AssetImage(_profilePicturePath),
-                              ),
-                            );
+                        child: Consumer<PicProvider>(
+                          builder: (context, imageProvider, _) {
+                            if (imageProvider.imageFile == null) {
+                              return const CircleAvatar(
+                                radius: 32,
+                                backgroundImage: AssetImage('assets/images/default_profile_pic.png'),
+                              );
+                            } else {
+                              return   CircleAvatar(
+                                  radius: 32,
+                                  backgroundImage: FileImage(imageProvider.imageFile!) as ImageProvider
+                              );
+                            }
                           },
                         ),
                       ),
@@ -154,45 +184,70 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 12,
+                  height: 15,
                 ),
-                GestureDetector(
-                  onTap: (){
-                    // future
-                  },
-                  child: Container(
-                    height: 90,
-                    width: width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                            Expanded(
-                              child: Consumer<UserProvider>(
-                              builder: (context,userProvider, _) {
-                              return BlueButton(
-                              imageIcon: "assets/images/fire.png",
-                              smallText: "Daily Streak",
-                                boldText: "${userProvider.streak} days",
-                              );
-                            },
-                          ), ),
-                          VerticalDivider(
-                            color: Colors.white,
-                            thickness: 1.5,
-                          ),
-                          BlueButton(
-                            imageIcon: "assets/images/clock.png",
-                            smallText: "Total Hours",
-                            boldText: "0 hrs",
-                          ),
-                        ],
+                Container(
+                  height: 70,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            constraints: BoxConstraints(maxWidth: double.infinity),
+                            child: Consumer<UserProvider>(
+                              builder: (context, userProvider, _) {
+                                return FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: BlueButton(
+                                    imageIcon: "assets/images/fire1.png",
+                                    smallText: "Daily Streak",
+                                    boldText: "${userProvider.streak} days",
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 40,
+                          child: VerticalDivider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                        ),
+                        Flexible(
+                          child: Container(
+                            constraints: BoxConstraints(maxWidth: double.infinity),
+                            child: Consumer<UserProvider>(
+                              builder: (context, userProvider, _) {
+                                return FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: BlueButton(
+                                    imageIcon: "assets/images/pencil.png",
+                                    smallText: "Attempts",
+                                    boldText: "${userProvider.attempted} Questions",
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -212,11 +267,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                       ),
                     ),
+                    SizedBox(
+                    height: 5,
+                    ),
+                    Text(
+                      "Practise through randomised MCQ tests",
+                      style: GoogleFonts.outfit(
+                          textStyle: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff646464),
+                          )
+                      ),
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
                     Container(
-                        height: 180,
+                        height: 165,
                         width: width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -267,22 +335,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Recent Attempts",
-                      style: GoogleFonts.outfit(
-                          textStyle: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.secondary,
-                          )
-                      ),
-                    ),
-                    SizedBox(width: 20,),
-                    DropdownButtonWidget(items: ["All Courses", "Machine Learning", "Artificial Intelligence"],)
-                  ],
+                LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            "Recent Attempts",
+                            style: GoogleFonts.outfit(
+                              textStyle: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        Flexible(
+                          child: DropdownButtonWidget(
+                            items: ["All Courses", "Machine Learning", "Artificial Intelligence"],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 10,

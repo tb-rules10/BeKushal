@@ -112,12 +112,14 @@ class _QuizScreenState extends State<QuizScreen> {
     correctAns = selectedAns;
     isQuesCompleted = true;
     isDisabled.addAll(["A", "B", "C", "D"]..remove(selectedAns));
+    attemptedPlus();
   }
   void autoCorrectOperation(String selectedAns) {
     submitText = "Next";
     autoCorrectAns = selectedAns;
     isQuesCompleted = true;
     isDisabled.addAll(["A", "B", "C", "D"]..remove(selectedAns));
+    attemptedPlus();
   }
   void defineColors(BuildContext context) {
     disabledBorderColor = Theme.of(context).colorScheme.secondary.withOpacity(0.15);
@@ -174,6 +176,17 @@ class _QuizScreenState extends State<QuizScreen> {
       prefs.setString('lastLoginDate', today.toIso8601String());
       maintainStreak();
     }
+  }
+
+  Future<void> attemptedPlus() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    int? currentAttempt = userProvider.attempted;
+    int newAttempt = currentAttempt! + 1;
+    userProvider.setAttempted(newAttempt);
+
+    await prefs.setInt('attempted',newAttempt);
   }
 
 

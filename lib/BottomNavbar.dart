@@ -6,6 +6,7 @@ import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:line_icons/line_icons.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,36 +74,41 @@ class _BottomNavbarState extends State<BottomNavbar> {
           },
           child: _screens[_currentIndex],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          selectedItemColor: Color(0xFF00B0FF),
-          unselectedItemColor: Theme.of(context).colorScheme.outline,
-          selectedLabelStyle: kBottomNavText,
-          unselectedLabelStyle: kBottomNavText,
-          iconSize: 35,
-          elevation: 1.5,
-          onTap: (int index) {
-            if(index == 0 && _currentIndex !=0 && widget.pageIndex!= null) {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            }
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore_rounded),
-              label: 'Explore',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+        bottomNavigationBar: SizedBox(
+          height: 74,
+          child: BottomNavigationBar(
+            selectedFontSize: 8,
+            unselectedFontSize: 8,
+            currentIndex: _currentIndex,
+            selectedItemColor: Color(0xFF00B0FF),
+            unselectedItemColor: Theme.of(context).colorScheme.outline,
+            selectedLabelStyle: kBottomNavText,
+            unselectedLabelStyle: kBottomNavText,
+            iconSize: 25,
+            elevation: 1.5,
+            onTap: (int index) {
+              if(index == 0 && _currentIndex !=0 && widget.pageIndex!= null) {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              }
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items:  [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.explore_rounded),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings_rounded),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
     );

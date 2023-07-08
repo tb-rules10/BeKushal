@@ -44,8 +44,8 @@ class BeKushal extends StatelessWidget {
         theme: AppTheme.lightTheme,
         // darkTheme: AppTheme.darkTheme,
         // themeMode: ThemeMode.system,
-        // initialRoute: (onboardingCompleted) ? BottomNavbar.id : OnboardingScreen.id,
-        initialRoute: BottomNavbar.id,
+        initialRoute: (onboardingCompleted) ? BottomNavbar.id : OnboardingScreen.id,
+        // initialRoute: BottomNavbar.id,
         routes: {
           OnboardingScreen.id: (context) => OnboardingScreen(),
           UserForm.id: (context) => UserForm(),
