@@ -160,6 +160,13 @@ class _QuizScreenState extends State<QuizScreen> {
         setState(() {
           _hasLoggedInToday = true;
         });
+      } else {
+        final difference = today.difference(lastLoginDateTime).inDays;
+        if (difference > 1) {
+          prefs.setInt('streak', 0);
+          UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+          userProvider.setStreak(0);
+        }
       }
     }
 

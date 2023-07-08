@@ -37,10 +37,39 @@ class _HomeScreenState extends State<HomeScreen> {
       int index = name.indexOf(" ");
       if(index!=-1) name =  name.substring(0, name.indexOf(" "));
       _name = name;
-
+      _checkLoginStreak();
       var streakDays = prefs.getInt('streak');
       context.read<UserProvider>().setStreak(streakDays!);
 
+  }
+
+  bool _hasLoggedInToday = false;
+  Future<void> _checkLoginStreak() async {
+
+    var prefs = await SharedPreferences.getInstance();
+
+    final lastLoginDate = prefs.getString('lastLoginDate');
+    final today = DateTime.now();
+
+    if (lastLoginDate != null) {
+      final lastLoginDateTime = DateTime.parse(lastLoginDate);
+      final isSameDay = lastLoginDateTime.year == today.year &&
+          lastLoginDateTime.month == today.month &&
+          lastLoginDateTime.day == today.day;
+
+      if (isSameDay) {
+        setState(() {
+          _hasLoggedInToday = true;
+        });
+      } else {
+        final difference = today.difference(lastLoginDateTime).inDays;
+        if (difference > 1) {
+          prefs.setInt('streak', 0);
+          UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+          userProvider.setStreak(0);
+        }
+      }
+    }
   }
 
   @override
