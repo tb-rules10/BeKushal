@@ -21,6 +21,7 @@ dependencies:
   image_picker: ^1.0.0
   dropdown_button2: ^2.1.4
   line_icons: ^2.0.3
+  wave_linear_progress_indicator: ^0.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

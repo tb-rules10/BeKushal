@@ -621,6 +621,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  wave_linear_progress_indicator:
+    dependency: "direct main"
+    description:
+      name: wave_linear_progress_indicator
+      sha256: ad0e6eca8fc352a34f250ff2d57235e1dc72441a8e6df66809c099690a2ff00a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   win32:
     dependency: transitive
     description:

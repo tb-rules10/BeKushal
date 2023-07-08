@@ -227,44 +227,49 @@ class _LBCScreenState extends State<LBCScreen> {
         ),
         bottomNavigationBar: Hero(
           tag: "BottomNav",
-          child: BottomNavigationBar(
-            currentIndex: 0,
-            selectedItemColor: const Color(0xFF00B0FF),
-            unselectedItemColor: Theme.of(context).colorScheme.outline,
-            selectedLabelStyle: kBottomNavText,
-            unselectedLabelStyle: kBottomNavText,
-            iconSize: 35,
-            elevation: 1.5,
-            onTap: (int index) {
-              setState(() {
-                if (index == 0) Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        BottomNavbar(pageIndex: index),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(opacity: animation, child: child);
-                    },
-                  ),
-                );
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.explore_rounded),
-                label: 'Explore',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-            ],
+          child: SizedBox(
+            height: 74,
+            child: BottomNavigationBar(
+              selectedFontSize: 8,
+              unselectedFontSize: 8,
+              currentIndex: 0,
+              selectedItemColor: Color(0xFF00B0FF),
+              unselectedItemColor: Theme.of(context).colorScheme.outline,
+              selectedLabelStyle: kBottomNavText,
+              unselectedLabelStyle: kBottomNavText,
+              iconSize: 25,
+              elevation: 1.5,
+              onTap: (int index) {
+                setState(() {
+                  if (index == 0) Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          BottomNavbar(pageIndex: index),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(opacity: animation, child: child);
+                      },
+                    ),
+                  );
+                });
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_filled),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.explore_rounded),
+                  label: 'Explore',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_rounded),
+                  label: 'Settings',
+                ),
+              ],
+            ),
           ),
         ),
       ),

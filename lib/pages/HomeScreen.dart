@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
 import '../components/drop_down.dart';
 import '../components/homeWidgets.dart';
 import 'OnboardingScreens/DisplayInfo.dart';
@@ -88,14 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _profilePicturePath = prefs.getString('profilePicturePath') ?? '';
     _name = prefs.getString('name') ?? '';
 
-    String firstName = '';
 
-    if (_name.isNotEmpty) {
-      List<String> nameParts = _name.split(' ');
-      firstName = nameParts.first;
-    }
-
-    context.read<UserProvider>().setName(firstName.trim());
+    context.read<UserProvider>().setName(_name);
 
     if (_profilePicturePath.isNotEmpty) {
       context.read<PicProvider>().setImageFile(File(_profilePicturePath));
@@ -127,13 +122,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Consumer<UserProvider>(
                             builder: (context,userProvider,_) {
+                              String? firstName = userProvider.name;
+                              if (_name.isNotEmpty) {
+                                List<String> nameParts = firstName!.split(' ');
+                                firstName = nameParts.first;
+                              }
+
                               return Container(
                                 width: width*0.70,
                                 padding: EdgeInsets.zero,
                                 child: FittedBox(
                                   alignment: Alignment.centerLeft,
                                   fit: BoxFit.scaleDown,
-                                  child: Text("Welcome, ${userProvider.name}!",
+                                  child: Text("Welcome, ${firstName}!",
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.outfit(
                                       textStyle: TextStyle(
@@ -213,10 +214,69 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context, userProvider, _) {
                                 return FittedBox(
                                   fit: BoxFit.scaleDown,
-                                  child: BlueButton(
-                                    imageIcon: "assets/images/fire1.png",
-                                    smallText: "Daily Streak",
-                                    boldText: "${userProvider.streak} days",
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      showDialog(context: context,
+                                          builder: (BuildContext context){
+                                              return Dialog(
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                                elevation: 16,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20.0),
+                                                    color: Color(0xffEAF0F9),
+                                                  ),
+                                                  height: 145,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(15.0,8.0,15.0,8.0),
+                                                        child: Text("Attempt 1 question daily to continue your streak!",textAlign: TextAlign.start,style: TextStyle(fontSize: 14 , fontWeight: FontWeight.w500 , color: Colors.grey),),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          WhiteButton(
+                                                            imageIcon: "assets/images/fire1.png",
+                                                            smallText: "${userProvider.streak} days",
+                                                            boldText: "Current Streak",
+                                                          ),
+                                                          WhiteButton(
+                                                            imageIcon: "assets/images/star.png",
+                                                            smallText: "15 days",
+                                                            boldText: "Next Milestone",
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        width: 200,
+                                                        child: Stack(
+                                                          children: [
+                                                            WaveLinearProgressIndicator(
+                                                              value: 0.7, // Set the progress value between 0.0 and 1.0
+                                                              backgroundColor: Colors.grey[300],
+                                                              waveColor: const Color(0xff00B0FF),
+                                                              waveBackgroundColor:Color(0xffFF4081) ,
+                                                              labelDecoration:BoxDecoration(
+                                                              color: Color(0xffFF4081), borderRadius: BorderRadius.circular(100.0),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                          }
+                                      );
+                                    },
+                                    child: BlueButton(
+                                      imageIcon: "assets/images/fire1.png",
+                                      smallText: "Daily Streak",
+                                      boldText: "${userProvider.streak} days",
+                                    ),
                                   ),
                                 );
                               },
@@ -237,10 +297,66 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context, userProvider, _) {
                                 return FittedBox(
                                   fit: BoxFit.scaleDown,
-                                  child: BlueButton(
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      showDialog(context: context,
+                                          builder: (BuildContext context){
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                              elevation: 16,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                  color: Color(0xffEAF0F9),
+                                                ),
+                                                height: 125,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        WhiteButton(
+                                                          imageIcon: "assets/images/pencilt.png",
+                                                          smallText: "${userProvider.attempted} Questions",
+                                                          boldText: "Attempted today",
+                                                        ),
+                                                        WhiteButton(
+                                                          imageIcon: "assets/images/star.png",
+                                                          smallText: "10 Questions",
+                                                          boldText: "Next Milestone",
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      width: 200,
+                                                      child: Stack(
+                                                        children: [
+                                                          WaveLinearProgressIndicator(
+                                                            value: 0.7, // Set the progress value between 0.0 and 1.0
+                                                            backgroundColor: Colors.grey[300],
+                                                            waveColor: const Color(0xff00B0FF),
+                                                            waveBackgroundColor:Color(0xffFF4081) ,
+                                                            labelDecoration:BoxDecoration(
+                                                              color: Color(0xffFF4081), borderRadius: BorderRadius.circular(100.0),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                      );
+                                    },
+                                    child: BlueButton(
                                     imageIcon: "assets/images/pencil.png",
                                     smallText: "Attempts",
                                     boldText: "${userProvider.attempted} Questions",
+                                  ),
                                   ),
                                 );
                               },

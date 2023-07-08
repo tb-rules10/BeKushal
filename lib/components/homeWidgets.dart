@@ -14,6 +14,7 @@ class BlueButton extends StatelessWidget {
   String imageIcon;
   String smallText;
   String boldText;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -131,6 +132,65 @@ class CoursesButton extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class WhiteButton extends StatelessWidget {
+  WhiteButton({
+    super.key,
+    required this.imageIcon,
+    required this.smallText,
+    required this.boldText,
+  });
+
+  String imageIcon;
+  String smallText;
+  String boldText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Row(
+          children: [
+            Image.asset(
+              imageIcon,
+              height: 37.66,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  smallText,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  boldText,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -143,50 +143,54 @@ class _DisplayInfoState extends State<DisplayInfo> {
                   }
               ),
             ),
-            const SizedBox(height: 16.0),
           ],
         ),
       ),
       bottomNavigationBar: Hero(
         tag: "BottomNav",
-        child: BottomNavigationBar(
-          currentIndex: 2,
-          selectedItemColor: const Color(0xFF00B0FF),
-          unselectedItemColor: Theme.of(context).colorScheme.outline,
-          selectedLabelStyle: kBottomNavText,
-          unselectedLabelStyle: kBottomNavText,
-          iconSize: 35,
-          elevation: 1.5,
-          onTap: (int index) {
-            setState(() {
-              if(index == 2) Navigator.pop(context);
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      BottomNavbar(pageIndex: index),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return FadeTransition(opacity: animation, child: child);
-                  },
-                ),
-              );
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore_rounded),
-              label: 'Explore',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: BottomNavigationBar(
+            selectedFontSize: 8,
+            unselectedFontSize: 8,
+            currentIndex: 2,
+            selectedItemColor: Color(0xFF00B0FF),
+            unselectedItemColor: Theme.of(context).colorScheme.outline,
+            selectedLabelStyle: kBottomNavText,
+            unselectedLabelStyle: kBottomNavText,
+            iconSize: 25,
+            elevation: 1.5,
+            onTap: (int index) {
+              setState(() {
+                if(index == 2) Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        BottomNavbar(pageIndex: index),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                  ),
+                );
+              });
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_filled),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.explore_rounded),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings_rounded),
+                label: 'Settings',
+              ),
+            ],
+          ),
         ),
       ),
     );

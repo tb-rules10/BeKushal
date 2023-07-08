@@ -6,10 +6,6 @@ import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:line_icons/line_icons.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class BottomNavbar extends StatefulWidget {
   static String id = "BottomNavbar";
@@ -75,7 +71,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           child: _screens[_currentIndex],
         ),
         bottomNavigationBar: SizedBox(
-          height: 74,
+          height: 65,
           child: BottomNavigationBar(
             selectedFontSize: 8,
             unselectedFontSize: 8,
