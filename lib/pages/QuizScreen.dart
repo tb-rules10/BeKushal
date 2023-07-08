@@ -355,6 +355,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     allQuestions[questionNumber].answer) {
                                   feedbackText = "Correct";
                                   marksCounter += 2;
+                                  _checkLoginStreak();
                                   manualCorrectOperation(selectedAns);
                                 }
                                 else {
