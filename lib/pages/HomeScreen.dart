@@ -126,10 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
     int a_milestone = 50;
     double attempted_milestone = (context.read<UserProvider>().attempted! / a_milestone);
 
-    while(attempted_milestone >= 1 && a_milestone < 500){
+    while(attempted_milestone >= 1.0 && a_milestone < 500){
       a_milestone = (a_milestone * 2);
       setState(() {
-        attempted_milestone = (context.read<UserProvider>().streak! / a_milestone);
+        attempted_milestone = (context.read<UserProvider>().attempted! / a_milestone);
       });
     }
 
@@ -311,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: BlueButton(
                                       imageIcon: "assets/images/fire1.png",
                                       smallText: "Daily Streak",
-                                      boldText: "${userProvider.streak} days",
+                                      boldText: "${userProvider.streak} Days",
                                     ),
                                   ),
                                 );
