@@ -52,8 +52,6 @@ class BeKushal extends StatelessWidget {
           ProfilePic.id: (context) => ProfilePic(),
           DisplayInfo.id: (context) => DisplayInfo(),
           EditProfile.id: (context) => EditProfile(),
-
-
           BottomNavbar.id: (context) => BottomNavbar(),
           HomeScreen.id: (context) => HomeScreen(),
           ExploreScreen.id: (context) => ExploreScreen(),

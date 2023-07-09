@@ -14,6 +14,7 @@ class UserProvider extends ChangeNotifier {
   String? _gender;
   int? _streak = 0;
   int? _attempted = 0;
+  List<String> _stats = ["Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1"];
 
   String? get name => _name;
   String? get email => _email;
@@ -22,6 +23,7 @@ class UserProvider extends ChangeNotifier {
   String? get gender => _gender;
   int? get streak => _streak;
   int? get attempted => _attempted;
+  List<String> get stats => _stats;
 
   void setName(String name) {
     _name = name;
@@ -58,6 +60,11 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setStats(List<String> array) {
+    _stats = array;
+    notifyListeners();
+  }
+
   void deleteUserInformation() {
     _name = null;
     _email = null;
@@ -65,6 +72,7 @@ class UserProvider extends ChangeNotifier {
     _occupation = null;
     _streak = 0;
     _attempted = 0;
+    _stats.clear();
     notifyListeners();
   }
 }
@@ -289,22 +297,32 @@ class _UserFormState extends State<UserForm> {
                               ),
                             ],
                           ),const SizedBox(height: 20.0,),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Occupation',
-                                labelStyle: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Outfit',
-                                  fontWeight: FontWeight.w700,
-                                )
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Occupation',
+                              labelStyle: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Outfit',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                            validator: (value){
-                              if(value == null || value.isEmpty){
-                                return 'Please enter a occupation';
+                            items: [
+                              DropdownMenuItem(
+                                value: 'Student',
+                                child: Text('Student'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Working',
+                                child: Text('Working Professional'),
+                              ),
+                            ],
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select an occupation';
                               }
                               return null;
                             },
-                            onSaved: (value){
+                            onChanged: (value) {
                               occupation = value!;
                               context.read<UserProvider>().setOccupation(value);
                             },

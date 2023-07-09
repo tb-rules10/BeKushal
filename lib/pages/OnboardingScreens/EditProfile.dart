@@ -380,24 +380,38 @@ class _EditProfileState extends State<EditProfile> {
                       ],
                     ),
                     const SizedBox(height: 15.0,),
-                    TextFormField(
-                      decoration:InputDecoration(
+                    DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
                         labelText: 'Occupation',
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Outfit',
                           fontSize: 18,
                         ),
-                        suffixIcon: IconButton(onPressed: toggleOccupationEdit,
+                        suffixIcon: IconButton(
+                          onPressed: toggleOccupationEdit,
                           icon: Icon(isOccupationEditable ? Icons.done : Icons.edit),
                         ),
                       ),
-                      controller: _occupationController,
-                      enabled: true,
-                      readOnly: !isOccupationEditable,
+                      value: _occupationController.text,
+                      items: [
+                        DropdownMenuItem(
+                          value: 'Student',
+                          child: Text('Student'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Working',
+                          child: Text('Working Professional'),
+                        ),
+                      ],
+                      onChanged: isOccupationEditable ? (value) {
+                        _occupationController.text = value!;
+                        context.read<UserProvider>().setOccupation(value);
+                      } : null,
                       validator: (value) {
+                        if (!isOccupationEditable) return null;
                         if (value == null || value.isEmpty) {
-                          return 'Please enter an occupation';
+                          return 'Please select an occupation';
                         }
                         return null;
                       },
