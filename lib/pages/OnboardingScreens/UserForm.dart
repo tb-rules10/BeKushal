@@ -91,7 +91,7 @@ class _UserFormState extends State<UserForm> {
   late SharedPreferences prefs;
 
   //Forms Data
-  late String name,email,gender='other',occupation,mobileNumber;
+  late String name,email,gender='male',occupation,mobileNumber;
   late DateTime dateOfBirth;
   late int streak = 0;
   late int attempted = 0;
@@ -312,7 +312,7 @@ class _UserFormState extends State<UserForm> {
                                 child: Text('Student'),
                               ),
                               DropdownMenuItem(
-                                value: 'Working',
+                                value: 'Working Professional',
                                 child: Text('Working Professional'),
                               ),
                             ],

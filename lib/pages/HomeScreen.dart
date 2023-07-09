@@ -106,6 +106,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    int milestone = 7;
+    double streak_milestone = (context.read<UserProvider>().streak! / milestone);
+
+    while(streak_milestone >= 1.0 && milestone < 56){
+      milestone = (milestone * 2);
+      setState(() {
+        print("working");
+        streak_milestone = (context.read<UserProvider>().streak! / milestone);
+      });
+    }
+
+    if(streak_milestone > 1.0){
+      streak_milestone = 1.0;
+    }
+
+
+    int a_milestone = 50;
+    double attempted_milestone = (context.read<UserProvider>().attempted! / a_milestone);
+
+    while(attempted_milestone >= 1 && a_milestone < 500){
+      a_milestone = (a_milestone * 2);
+      setState(() {
+        attempted_milestone = (context.read<UserProvider>().streak! / a_milestone);
+      });
+    }
+
+    if(attempted_milestone > 1.0){
+      attempted_milestone = 1.0;
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -249,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ),
                                                           WhiteButton(
                                                             imageIcon: "assets/images/star.png",
-                                                            smallText: "15 days",
+                                                            smallText: "${milestone} days",
                                                             boldText: "Next Milestone",
                                                           ),
                                                         ],
@@ -259,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         child: Stack(
                                                           children: [
                                                             WaveLinearProgressIndicator(
-                                                              value: 0.7, // Set the progress value between 0.0 and 1.0
+                                                              value: streak_milestone ,
                                                               backgroundColor: Colors.grey[300],
                                                               waveColor: const Color(0xff00B0FF),
                                                               waveBackgroundColor:Color(0xffFF4081) ,
@@ -329,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         WhiteButton(
                                                           imageIcon: "assets/images/star.png",
-                                                          smallText: "10 Questions",
+                                                          smallText: "${a_milestone} Questions",
                                                           boldText: "Next Milestone",
                                                         ),
                                                       ],
@@ -339,7 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       child: Stack(
                                                         children: [
                                                           WaveLinearProgressIndicator(
-                                                            value: 0.7, // Set the progress value between 0.0 and 1.0
+                                                            value: attempted_milestone, // Set the progress value between 0.0 and 1.0
                                                             backgroundColor: Colors.grey[300],
                                                             waveColor: const Color(0xff00B0FF),
                                                             waveBackgroundColor:Color(0xffFF4081) ,
@@ -560,7 +591,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Theme.of(context).colorScheme.tertiary,
                     ),
                     Icon(Icons.radio_button_checked, color: Theme.of(context).colorScheme.tertiary,),
-
                   ],
                 ),
               ),

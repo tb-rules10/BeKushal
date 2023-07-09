@@ -400,7 +400,7 @@ class _EditProfileState extends State<EditProfile> {
                           child: Text('Student'),
                         ),
                         DropdownMenuItem(
-                          value: 'Working',
+                          value: 'Working Professional',
                           child: Text('Working Professional'),
                         ),
                       ],
