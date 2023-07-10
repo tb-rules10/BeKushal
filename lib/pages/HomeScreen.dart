@@ -356,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         WhiteButton(
                                                           imageIcon: "assets/images/pencilt.png",
                                                           smallText: "${userProvider.attempted} Questions",
-                                                          boldText: "Attempted today",
+                                                          boldText: "Attempted",
                                                         ),
                                                         WhiteButton(
                                                           imageIcon: "assets/images/star.png",

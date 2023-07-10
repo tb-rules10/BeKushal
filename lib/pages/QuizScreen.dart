@@ -544,7 +544,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             direction: Axis.vertical,
                             internalPadding: 10,
                             padding: const EdgeInsetsDirectional.symmetric(horizontal: 30, vertical: 20),
-                            stepRadius: 80,
+                            stepRadius: 75,
                             finishedStepTextColor: Colors.blue,
                             activeStepBorderColor: Colors.blue,
                             activeStepBackgroundColor: Colors.grey,
