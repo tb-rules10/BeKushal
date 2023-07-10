@@ -601,7 +601,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   ),
                                 ),
                                 customTitle: Text(
-                                  'Hard Level',
+                                  'Expert Level',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                     fontSize: 18,
