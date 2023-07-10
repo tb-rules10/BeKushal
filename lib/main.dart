@@ -45,13 +45,15 @@ class BeKushal extends StatelessWidget {
         // darkTheme: AppTheme.darkTheme,
         // themeMode: ThemeMode.system,
         initialRoute: (onboardingCompleted) ? BottomNavbar.id : OnboardingScreen.id,
-        // initialRoute: BottomNavbar.id,
+        // initialRoute: QuizScreen.id,
         routes: {
           OnboardingScreen.id: (context) => OnboardingScreen(),
           UserForm.id: (context) => UserForm(),
           ProfilePic.id: (context) => ProfilePic(),
           DisplayInfo.id: (context) => DisplayInfo(),
           EditProfile.id: (context) => EditProfile(),
+
+
           BottomNavbar.id: (context) => BottomNavbar(),
           HomeScreen.id: (context) => HomeScreen(),
           ExploreScreen.id: (context) => ExploreScreen(),

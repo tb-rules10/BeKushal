@@ -50,9 +50,6 @@ class _DisplayInfoState extends State<DisplayInfo> {
 
     final screenHeight = MediaQuery.of(context).size.height;
 
-    // final infoProvider = Provider.of<UserProvider>(context);
-    // final infoArray = infoProvider.stats;
-
     return Scaffold(
       backgroundColor: const Color(0xffEAF0F9),
       appBar: AppBar(
