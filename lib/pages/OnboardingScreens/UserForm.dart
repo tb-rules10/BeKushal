@@ -205,18 +205,18 @@ class _UserFormState extends State<UserForm> {
                             )
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Please enter your email';
                           }
                           final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                          if (!emailRegex.hasMatch(value)) {
+                          if (!emailRegex.hasMatch(value.trim())) {
                             return 'Please enter a valid email address.\n Example: john@example.com';
                           }
                           return null;
                         },
                         onSaved: (value) {
-                          email = value!;
-                          context.read<UserProvider>().setEmail(value);
+                          email = value!.trim();
+                          context.read<UserProvider>().setEmail(value.trim());
                         },
                       ),const SizedBox(height: 20),
                       TextFormField(
@@ -228,15 +228,15 @@ class _UserFormState extends State<UserForm> {
                             fontSize: 16,
                           ),
                         ),
-                        validator: (value){
-                          if(value == null || value.isEmpty || value.length != 10){
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty || value.trim().length != 10) {
                             return 'Please enter a valid 10-digit mobile number.\nExample: 1234567890';
                           }
                           return null;
                         },
-                        onSaved: (value){
-                          mobileNumber = value!;
-                          context.read<UserProvider>().setMobileNumber(value);
+                        onSaved: (value) {
+                          mobileNumber = value!.trim();
+                          context.read<UserProvider>().setMobileNumber(value.trim());
                         },
                       ),const SizedBox(height: 30),
                       Column(

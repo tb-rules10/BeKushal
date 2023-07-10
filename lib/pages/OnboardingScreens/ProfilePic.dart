@@ -96,7 +96,7 @@ class _ProfilePicState extends State<ProfilePic> {
               fontWeight: FontWeight.bold,
               fontSize: 28,
             ),),
-            SizedBox(height: 90,),
+            SizedBox(height: 70,),
             Center(
               child: Stack(
                 children: [
@@ -139,7 +139,7 @@ class _ProfilePicState extends State<ProfilePic> {
                 ],
               ),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _pickProfilePicture,
               style: ElevatedButton.styleFrom(
@@ -150,7 +150,7 @@ class _ProfilePicState extends State<ProfilePic> {
                 color: Color(0xff1E1E1E),
                 fontSize: 23,
               ),),
-            ), const SizedBox(height: 40.0),
+            ), const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: (){
                 Navigator.pushNamed(context, BottomNavbar.id);
