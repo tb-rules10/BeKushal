@@ -107,7 +107,7 @@ class _ProfilePicState extends State<ProfilePic> {
                         if (imageProvider.imageFile == null) {
                           return const CircleAvatar(
                             radius: 150,
-                            backgroundImage: AssetImage('assets/default_profile_pic.jpg'),
+                            backgroundImage: AssetImage('assets/images/default_profile_pic.png'),
                           );
                         } else {
                           return   CircleAvatar(
