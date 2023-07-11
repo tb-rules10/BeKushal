@@ -138,18 +138,19 @@ class _OurTeamScreenState extends State<OurTeamScreen> {
                   ),
                 ),
                 SizedBox(height: 20.0),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Text(
-                    'Future Developers',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF393536),
-                      fontFamily: 'Outfit',
+                if (futureDevelopers.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      'Future Developers',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF393536),
+                        fontFamily: 'Outfit',
+                      ),
                     ),
                   ),
-                ),
                 SizedBox(height: 10.0),
                 Align(
                   alignment: Alignment.centerLeft,

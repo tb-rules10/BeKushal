@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../BottomNavbar.dart';
 import '../../components/customRadio.dart';
 import '../../constants/textStyles.dart';
+import 'OnboardingScreen.dart';
 import 'ProfilePic.dart';
 import 'UserForm.dart';
 
@@ -95,8 +96,12 @@ class _EditProfileState extends State<EditProfile> {
   void _deleteAccount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    Navigator.pushNamed(context, '/onboarding1');
     context.read<UserProvider>().deleteUserInformation();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      OnboardingScreen.id,
+          (route) => false,
+    );
   }
 
   void toggleNameEdit() {

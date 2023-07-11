@@ -153,7 +153,11 @@ class _ProfilePicState extends State<ProfilePic> {
             ), const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: (){
-                Navigator.pushNamed(context, BottomNavbar.id);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  BottomNavbar.id,
+                      (route) => false,
+                );
               },
               style: ElevatedButton.styleFrom(
                 textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

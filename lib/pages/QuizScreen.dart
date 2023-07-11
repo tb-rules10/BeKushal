@@ -40,7 +40,7 @@ class _QuizScreenState extends State<QuizScreen> {
   late double finalScore = 0;
   int level = 0;
   List<String> levels = ["Beginner Level", "Intermediate Level", "Expert Level"];
-  int level_Length = 3;
+  int level_Length = 20;
   Random random = Random();
   bool isMedalDrawer = false;
   bool isQuizCompleted = false;

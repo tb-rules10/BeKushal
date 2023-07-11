@@ -260,8 +260,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Consumer<UserProvider>(
                               builder: (context, userProvider, _) {
                                 String? firstName = userProvider.name;
-                                if (_name.isNotEmpty) {
-                                  List<String> nameParts = firstName!.split(' ');
+                                if (_name.isNotEmpty && firstName != null) {
+                                  List<String> nameParts = firstName.split(' ');
                                   firstName = nameParts.first;
                                 }
     
