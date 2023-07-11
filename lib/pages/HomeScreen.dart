@@ -56,15 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {}); // Update the state after getting details
     });
     initializePreferences();
-    print("init");
   }
 
   void onDropdownValueChanged(String value) {
     // Do something with the selected value
-    print(value);
     selectedValue = value;
     setState(() {});
-    print('onDrop');
     // Perform setState or any other action based on the new value
   }
 
@@ -83,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return course;
     }).toList();
     allTopics = topics;
-    print("read Data");
   }
 
   String getCourseNameFromQuizCode(List<Course> courses, String quizCode) {
@@ -94,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    print('getcoursename');
     return '';
   }
 
@@ -107,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     // setState((){});
-    print("getTopic");
     return ""; // Return a default value if the quiz code is not found
   }
 
@@ -137,7 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    print("check");
   }
 
   Future<void> initializePreferences() async {
@@ -158,7 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
       context.read<PicProvider>().setImageFile(File(_profilePicturePath));
       setState(() {});
     }
-    print("initial");
   }
 
   Future<void> getDetails() async {
@@ -179,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<UserProvider>().setAttempted(attempt!);
 
     // var data = prefs.getStringList('allQuizData');
-    print('***********************************************');
     //   print(data[0].quizCode.toString());
     List<String>? data = prefs.getStringList('allQuizData');
     if (data != null) {
@@ -196,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
       allAttempts.add(quizData.quizCode);
       allFinal.add(quizData.level);
 
-      print(allFinal);
       if (quizData.quizCode.startsWith('ML')) {
         mlAttempts.add(quizData.quizCode);
         mlFinal.add(quizData.level);
@@ -205,7 +195,6 @@ class _HomeScreenState extends State<HomeScreen> {
         aiFinal.add(quizData.level);
       }
     }
-    print('getDetail');
   }
 
   @override
@@ -216,12 +205,10 @@ class _HomeScreenState extends State<HomeScreen> {
     double streak_milestone =
         (context.read<UserProvider>().streak! / milestone);
 
-    print(allFinal);
 
     while (streak_milestone >= 1.0 && milestone < 56) {
       milestone = (milestone * 2);
       setState(() {
-        print("working");
         streak_milestone = (context.read<UserProvider>().streak! / milestone);
       });
     }
