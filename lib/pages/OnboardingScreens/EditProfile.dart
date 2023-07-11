@@ -393,7 +393,7 @@ class _EditProfileState extends State<EditProfile> {
                           icon: Icon(isOccupationEditable ? Icons.done : Icons.edit),
                         ),
                       ),
-                      value: _occupationController.text,
+                      value: _occupationController.text.isEmpty ? null : _occupationController.text,
                       items: [
                         DropdownMenuItem(
                           value: 'Student',

@@ -528,7 +528,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             smallText:
                                                                 "${userProvider.attempted} Questions",
                                                             boldText:
-                                                                "Attempted today",
+                                                                "Attempted",
                                                           ),
                                                           WhiteButton(
                                                             imageIcon:
@@ -682,17 +682,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           FittedBox(
-                            child: Flexible(
-                              child: Text(
-                                allAttempts.isEmpty == true
-                                    ? "No Recent Attempts"
-                                    : "Recent Attempts",
-                                style: GoogleFonts.outfit(
-                                  textStyle: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).colorScheme.secondary,
-                                  ),
+                            child: Text(
+                              allAttempts.isEmpty == true
+                                  ? "No Recent Attempts"
+                                  : "Recent Attempts",
+                              style: GoogleFonts.outfit(
+                                textStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                             ),
@@ -722,15 +720,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: 20,
                           ),
-                          Flexible(
-                              child: DropdownButtonWidget(
-                            items: [
-                              "All Courses",
-                              "Machine Learning",
-                              "Artificial Intelligence"
-                            ],
-                            onChanged: onDropdownValueChanged,
-                          )),
+                          FittedBox(
+                            child: DropdownButtonWidget(
+                              items: [
+                            "All Courses",
+                            "Machine Learning",
+                            "Artificial Intelligence"
+                              ],
+                              onChanged: onDropdownValueChanged,
+                            ),
+                          ),
                         ],
                       );
                     },
