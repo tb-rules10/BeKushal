@@ -29,7 +29,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     List<Topics> results = [];
     for(var topic in allTopics){
       List<String> searchTerms = topic.searchTerms.split(' ');
-      if (searchTerms.contains(query)) {
+      if (searchTerms.contains(query.trim())) {
         results.add(topic);
       }
     }

@@ -1,3 +1,5 @@
+import 'package:bekushal/BottomNavbar.dart';
+import 'package:bekushal/pages/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -73,7 +75,18 @@ class GoBackButton extends StatelessWidget {
           padding: padding,
           child: GestureDetector(
             onTap: (){
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                        BottomNavbar(pageIndex: 0),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(opacity: animation, child: child);
+                      },
+                    ),
+                  );
             },
             child: Icon(
               Icons.arrow_back,

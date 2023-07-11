@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   String? _gender;
   int? _streak = 0;
   int? _attempted = 0;
-  List<String> _stats = ["Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1"];
+  // List<String> _stats = ["Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1"];
 
   String? get name => _name;
   String? get email => _email;
@@ -23,7 +23,7 @@ class UserProvider extends ChangeNotifier {
   String? get gender => _gender;
   int? get streak => _streak;
   int? get attempted => _attempted;
-  List<String> get stats => _stats;
+  // List<String> get stats => _stats;
 
   void setName(String name) {
     _name = name;
@@ -61,7 +61,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   void setStats(List<String> array) {
-    _stats = array;
+    // _stats = array;
     notifyListeners();
   }
 
@@ -72,7 +72,7 @@ class UserProvider extends ChangeNotifier {
     _occupation = null;
     _streak = 0;
     _attempted = 0;
-    _stats.clear();
+    // _stats.clear();
     notifyListeners();
   }
 }

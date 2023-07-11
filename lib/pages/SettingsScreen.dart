@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:bekushal/pages/OnboardingScreens/DisplayInfo.dart';
 import 'package:bekushal/pages/OtherScreens/OutTeamScreen.dart';
 import 'package:flutter/material.dart';
@@ -35,30 +37,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.secondary,
                 )),
-            SubHeading(context, 'Theme'),
-            Tile(context, 'Dark Mode', () {
-              print('Callback function called!');
-            }, SwitchExample()),
+            // SubHeading(context, 'Theme'),
+            // Tile(context, 'Dark Mode', () {
+            //   print('Callback function called!');
+            // }, SwitchExample()),
             SubHeading(context, 'About'),
-            Tile(context, 'Version', () {
-              print('Callback function called!');
-            },
-                Text(
-                  '1.0.0',
-                  style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                          fontSize: 15,
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.w600)),
-                )),
-            Tile(context, 'Terms of Use', () {
-                print('Callback function called!');
-              },
-              null,
-            ),
-            Tile(context, 'Privacy Policy', () {
-              print('Callback function called!');
-            }, null),
+            // Tile(context, 'Version', () {
+            //   print('Callback function called!');
+            // },
+            //     Text(
+            //       '1.0.0',
+            //       style: GoogleFonts.inter(
+            //           textStyle: TextStyle(
+            //               fontSize: 15,
+            //               color: Theme.of(context).colorScheme.secondary,
+            //               fontWeight: FontWeight.w600)),
+            //     )),
+            // Tile(context, 'Terms of Use', () {
+            //     print('Callback function called!');
+            //   },
+            //   null,
+            // ),
+            // Tile(context, 'Privacy Policy', () {
+            //   print('Callback function called!');
+            // }, null),
             Tile(context, 'Our Team', () {
               Navigator.push(
                 context,
@@ -75,14 +77,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.secondary,
                 )),
-            SubHeading(context, 'Support'),
-            Tile(context, 'Report a Bug', () {
-              print('Callback function called!');
-            },
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Theme.of(context).colorScheme.secondary,
-                )),
+            // SubHeading(context, 'Support'),
+            // Tile(context, 'Report a Bug', () {
+            //   print('Callback function called!');
+            // },
+            //     Icon(
+            //       Icons.arrow_forward_ios,
+            //       color: Theme.of(context).colorScheme.secondary,
+            //     )),
             const SizedBox(
               height: 25,
             )

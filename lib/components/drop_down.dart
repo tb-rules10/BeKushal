@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+String selectedValue = 'All Courses';
+
 class DropdownButtonWidget extends StatefulWidget {
   final List<String> items;
+  final Function(String) onChanged;
 
-  DropdownButtonWidget({Key? key, required this.items}) : super(key: key);
+  DropdownButtonWidget({Key? key, required this.items, required this.onChanged}) : super(key: key);
 
   @override
   _DropdownButtonWidgetState createState() => _DropdownButtonWidgetState();
 }
 
 class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
-  late String selectedValue;
+  
 
   List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
     final List<DropdownMenuItem<String>> menuItems = [];
@@ -83,6 +86,7 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
             setState(() {
               selectedValue = value!;
             });
+            widget.onChanged(selectedValue);
           },
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.symmetric(horizontal: 10),

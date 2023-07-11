@@ -64,7 +64,7 @@ class _LBCScreenState extends State<LBCScreen> {
                       bottomRight: Radius.circular(25))),
               pinned: false,
               automaticallyImplyLeading: false,
-              toolbarHeight: 215,
+              toolbarHeight: height * 0.24,
               elevation: 0,
               backgroundColor: Theme.of(context).colorScheme.primary,
               flexibleSpace: Padding(
@@ -84,16 +84,28 @@ class _LBCScreenState extends State<LBCScreen> {
                             var items = data.data as List<LbcDataModel>;
                             return Align(
                               alignment: Alignment.bottomLeft,
-                              child: Text(
-                                items[widget.courseID].courseName.toString(),
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.outfit(
-                                  textStyle: TextStyle(
-                                    fontSize: 38,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                              child: LayoutBuilder(
+                                builder: (BuildContext context,
+                                    BoxConstraints constraints) {
+                                  double fontSize = height * 0.04;
+                                  return Container(
+                                    constraints:
+                                        BoxConstraints(maxHeight: height),
+                                    child: Text(
+                                      items[widget.courseID]
+                                          .courseName
+                                          .toString(),
+                                      textAlign: TextAlign.left,
+                                      style: GoogleFonts.outfit(
+                                        textStyle: TextStyle(
+                                          fontSize: fontSize,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             );
                           } else {

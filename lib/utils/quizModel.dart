@@ -32,6 +32,7 @@ class QuizData {
   final List<int> marksCounter;
   final List<int> prevMarks;
   final List<String> attemptedQuestions;
+  final double finalScore;
 
   QuizData({
     required this.quizCode,
@@ -40,6 +41,7 @@ class QuizData {
     required this.marksCounter,
     required this.prevMarks,
     required this.attemptedQuestions,
+    required this.finalScore
   });
 
   factory QuizData.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class QuizData {
       marksCounter: List<int>.from(json["marksCounter"]),
       prevMarks: List<int>.from(json["prevMarks"]),
       attemptedQuestions: List<String>.from(json["attemptedQuestions"]),
+      finalScore: json["finalScore"]
     );
   }
 
@@ -60,5 +63,6 @@ class QuizData {
     "marksCounter": marksCounter,
     "prevMarks": prevMarks,
     "attemptedQuestions": attemptedQuestions,
+    "finalScore": finalScore
   };
 }
