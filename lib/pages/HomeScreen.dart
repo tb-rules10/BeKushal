@@ -678,59 +678,62 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   LayoutBuilder(
                     builder: (BuildContext context, BoxConstraints constraints) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          FittedBox(
-                            child: Text(
-                              allAttempts.isEmpty == true
-                                  ? "No Recent Attempts"
-                                  : "Recent Attempts",
-                              style: GoogleFonts.outfit(
-                                textStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.secondary,
+                      return Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FittedBox(
+                              child: Text(
+                                allAttempts.isEmpty == true
+                                    ? "No Recent Attempts"
+                                    : "Recent Attempts",
+                                style: GoogleFonts.outfit(
+                                  textStyle: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                              secondaryAnimation) =>
-                                          BottomNavbar(pageIndex: 0),
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return FadeTransition(
-                                            opacity: animation, child: child);
-                                      },
-                                    ),
-                                  );
-                                });
-                              },
-                              icon: Icon(
-                                Icons.refresh,
-                                size: 24,
-                              )),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          FittedBox(
-                            child: DropdownButtonWidget(
-                              items: [
-                            "All Courses",
-                            "Machine Learning",
-                            "Artificial Intelligence"
-                              ],
-                              onChanged: onDropdownValueChanged,
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, animation,
+                                                secondaryAnimation) =>
+                                            BottomNavbar(pageIndex: 0),
+                                        transitionsBuilder: (context, animation,
+                                            secondaryAnimation, child) {
+                                          return FadeTransition(
+                                              opacity: animation, child: child);
+                                        },
+                                      ),
+                                    );
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.refresh,
+                                  size: 24,
+                                )),
+                            SizedBox(
+                              width: 20,
                             ),
-                          ),
-                        ],
+                            FittedBox(
+                              child: DropdownButtonWidget(
+                                items: [
+                              "All Courses",
+                              "Machine Learning",
+                              "Artificial Intelligence"
+                                ],
+                                onChanged: onDropdownValueChanged,
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ),
