@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
 import '../../BottomNavbar.dart';
-
 
 class PicProvider extends ChangeNotifier {
   File? _imageFile;
@@ -21,7 +21,6 @@ class PicProvider extends ChangeNotifier {
   }
 }
 
-
 class ProfilePic extends StatefulWidget {
   static String id = "ProfilePic";
   const ProfilePic({Key? key}) : super(key: key);
@@ -31,7 +30,6 @@ class ProfilePic extends StatefulWidget {
 }
 
 class _ProfilePicState extends State<ProfilePic> {
-
   late SharedPreferences prefs;
   late String profilePicturePath;
 
@@ -51,12 +49,10 @@ class _ProfilePicState extends State<ProfilePic> {
   }
 
   Future<void> _pickProfilePicture() async {
-
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-
       String imagePath = pickedImage.path;
       File imageFile = File(imagePath);
 
@@ -72,8 +68,6 @@ class _ProfilePicState extends State<ProfilePic> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -92,11 +86,16 @@ class _ProfilePicState extends State<ProfilePic> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Add a Profile Picture',style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28,
-            ),),
-            SizedBox(height: 70,),
+            const Text(
+              'Add a Profile Picture',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+            ),
+            SizedBox(
+              height: 70,
+            ),
             Center(
               child: Stack(
                 children: [
@@ -107,13 +106,15 @@ class _ProfilePicState extends State<ProfilePic> {
                         if (imageProvider.imageFile == null) {
                           return const CircleAvatar(
                             radius: 150,
-                            backgroundImage: AssetImage('assets/images/default_profile_pic.png'),
+                            backgroundImage: AssetImage(
+                                'assets/images/default_profile_pic.png'),
                           );
                         } else {
-                          return   CircleAvatar(
+                          return CircleAvatar(
                               radius: 150,
-                              backgroundImage: FileImage(imageProvider.imageFile!) as ImageProvider
-                          );
+                              backgroundImage:
+                                  FileImage(imageProvider.imageFile!)
+                                      as ImageProvider);
                         }
                       },
                     ),
@@ -135,7 +136,8 @@ class _ProfilePicState extends State<ProfilePic> {
                           color: Colors.white,
                         ),
                       ),
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -146,32 +148,56 @@ class _ProfilePicState extends State<ProfilePic> {
                 elevation: 0,
                 backgroundColor: Color(0xffEAF0F9),
               ),
-              child: const Text('Change Picture',style: TextStyle(
-                color: Color(0xff1E1E1E),
-                fontSize: 23,
-              ),),
-            ), const SizedBox(height: 20.0),
+              child: const Text(
+                'Change Picture',
+                style: TextStyle(
+                  color: Color(0xff1E1E1E),
+                  fontSize: 23,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   BottomNavbar.id,
-                      (route) => false,
+                  (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
-                textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 minimumSize: Size(MediaQuery.of(context).size.width * 0.75, 0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Set Profile Picture'),),
+              child: const Text('Set Profile Picture'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    BottomNavbar.id,
+                    (route) => false,
+                  );
+                },
+                child: const Text(
+                  'Skip',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 1.5),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-
     );
   }
 }
