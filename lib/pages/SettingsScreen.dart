@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable, unused_import
 
 import 'package:bekushal/pages/OnboardingScreens/DisplayInfo.dart';
 import 'package:bekushal/pages/OtherScreens/OutTeamScreen.dart';
@@ -28,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
               child: ScreenHeading(heading: 'Settings'),
-            ),
+            ),  
             SubHeading(context, 'Account'),
             Tile(context, 'Profile', () {
               Navigator.pushNamed(context, DisplayInfo.id);

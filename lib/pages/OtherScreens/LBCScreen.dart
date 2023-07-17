@@ -1,6 +1,6 @@
+// ignore_for_file: must_be_immutable, file_names
+
 import 'package:bekushal/BottomNavbar.dart';
-import 'package:bekushal/pages/ExploreScreen.dart';
-import 'package:bekushal/pages/SettingsScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' as rootBundle;
@@ -25,10 +25,13 @@ class _LBCScreenState extends State<LBCScreen> {
   List<Course> allCourses = [];
   List<Topics> allTopics = [];
 
+// Functions to read data from the inputData.json
   Future<void> readData() async {
     String jsonString =
         await rootBundle.rootBundle.loadString('assets/data/inputData.json');
     List<Topics> topics = [];
+
+    // Storing data in form of List<Dynamic>
     final jsonData = json.decode(jsonString) as List<dynamic>;
     allCourses = jsonData.map<Course>((item) {
       var course = Course.fromJson(item);
@@ -57,6 +60,7 @@ class _LBCScreenState extends State<LBCScreen> {
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
+            // SilverAppBar to impliment scrollable appbar
             SliverAppBar(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
@@ -75,6 +79,8 @@ class _LBCScreenState extends State<LBCScreen> {
                     const GoBackButton(
                       padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                     ),
+
+                    // fetching data and return as a container
                     FutureBuilder(
                         future: ReadJsonData(),
                         builder: (context, data) {
@@ -118,6 +124,8 @@ class _LBCScreenState extends State<LBCScreen> {
                 ),
               ),
             ),
+
+            // Subjects
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(left: 28.0),
@@ -154,6 +162,8 @@ class _LBCScreenState extends State<LBCScreen> {
                 height: 10,
               ),
             ),
+
+            // using listview builder to make list of all the subjects dynamically through json
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -194,6 +204,7 @@ class _LBCScreenState extends State<LBCScreen> {
                                           ),
                                         ),
                                       )),
+                                      // showing the bottomsheet on pressing the button
                                   trailing: ElevatedButton(
                                       onPressed: () {
                                         showModalBottomSheet(
@@ -237,6 +248,8 @@ class _LBCScreenState extends State<LBCScreen> {
             ),
           ],
         ),
+        
+        // BottomNavbar
         bottomNavigationBar: Hero(
           tag: "BottomNav",
           child: SizedBox(
