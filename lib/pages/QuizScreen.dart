@@ -40,6 +40,7 @@ class _QuizScreenState extends State<QuizScreen> {
   late double finalScore = 0;
   int level = 0;
   List<String> levels = ["Beginner Level", "Intermediate Level", "Expert Level"];
+  // Length of a level
   int level_Length = 10;
   Random random = Random();
   bool isMedalDrawer = false;
@@ -90,6 +91,7 @@ class _QuizScreenState extends State<QuizScreen> {
     super.dispose();
   }
 
+  // Function to read questions
   Future<void> readData() async {
     String path = quizData[1];
     String jsonString = await rootBundle.loadString(path);
@@ -102,10 +104,11 @@ class _QuizScreenState extends State<QuizScreen> {
     quizLength = allQuestions.length;
     print(quizLength);
     if(currQuiz == null){
-      fetchQNUM();
+      changeQNUM();
     }
     print(currQuiz);
   }
+  // Fetch previously attempted quiz data from memory.
   Future<void> fetchQuizData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? data = prefs.getStringList('allQuizData');
@@ -121,8 +124,8 @@ class _QuizScreenState extends State<QuizScreen> {
               (data) => data.quizCode == widget.quizCode,
           orElse: () => null as QuizData,
         );
+        // Read data and overwrite variables
         if (currQuiz != null) {
-          print("Indput DATA");
           attemptedQuestions = currQuiz!.attemptedQuestions;
           questionNumber = currQuiz!.questionNumber;
           marksCounter = currQuiz!.marksCounter;
@@ -132,6 +135,7 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     }
   }
+  // Save quiz data (score, questions attempted, etc..)
   Future<void> saveQuizData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> temp = [];
@@ -144,18 +148,16 @@ class _QuizScreenState extends State<QuizScreen> {
         prevMarks: prevMarksCounter,
         attemptedQuestions: attemptedQuestions,
         finalScore: finalScore
-        
     );
     allQuizData.add(newData);
-    print("**********************#########################***********************");
     for(var data in allQuizData){
       temp.add(jsonEncode(data));
     }
     print(temp);
     prefs.setStringList('allQuizData', temp);
   }
-
-  void fetchQNUM() async {
+  // Display questions randomly
+  void changeQNUM() async {
     while(true){
       String quesNo = random.nextInt(quizLength).toString();
       if(!attemptedQuestions.contains(quesNo)){
@@ -168,6 +170,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
     }
   }
+  // Reset all variables when a new  question is loaded
   void reset() {
     feedbackText = "";
     submitText = "Submit";
@@ -261,9 +264,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
     await prefs.setInt('streak',newStreak);
   }
-
+  // Manage daily streak on homepage
   Future<void> _checkLoginStreak() async {
-
     var prefs = await SharedPreferences.getInstance();
 
     final lastLoginDate = prefs.getString('lastLoginDate');
@@ -294,15 +296,13 @@ class _QuizScreenState extends State<QuizScreen> {
       maintainStreak();
     }
   }
-
+  // Manage attempted questions on homepage
   Future<void> attemptedPlus() async {
     var prefs = await SharedPreferences.getInstance();
-
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     int? currentAttempt = userProvider.attempted;
     int newAttempt = currentAttempt! + 1;
     userProvider.setAttempted(newAttempt);
-
     await prefs.setInt('attempted',newAttempt);
   }
 
@@ -631,13 +631,15 @@ class _QuizScreenState extends State<QuizScreen> {
                             ? () {
                           print("marks - " +  marksCounter.toString());
                           // questionNumber ++;
+                          // check if quiz is completed
                           if(attemptedQuestions.length<quizLength){
                             setState(() {
                               reset();
                               if(marksCounter.length >= level_Length){
+                                // check score and update level accordingly
                                 checkScore();
                               }
-                              fetchQNUM();
+                              changeQNUM();
                             });
                           }
                           else{
@@ -652,6 +654,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             }
                             else {
                               tryCount ++;
+                              // if answer is correct in 1st attempt
                               if (tryCount == 1) {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {
@@ -667,6 +670,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   // submitText = "Try Again";
                                 }
                               }
+                              // if answer is correct in 2nd attempt
                               else {
                                 if (selectedAns ==
                                     allQuestions[questionNumber].answer) {

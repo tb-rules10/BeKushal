@@ -37,7 +37,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       searchResults = results;
     });
   }
-
+  // Store all topics in a variable to display them
   Future<void> readData() async{
     String jsonString = await rootBundle.loadString('assets/data/inputData.json');
     List<Topics> topics = [];
@@ -49,7 +49,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }).toList();
     allTopics = topics;
   }
-
+  // Save recent searches in local storage
   Future<void> saveRecentSearches() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> data = [];
@@ -58,7 +58,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }
     prefs.setStringList('recentSearches', data);
   }
-
+  // Load recent searches for local storage
   Future<void> getRecentSearches() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? searches = prefs.getStringList('recentSearches');

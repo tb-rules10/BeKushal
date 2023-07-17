@@ -178,7 +178,7 @@ class BottomSheetMenu extends StatelessWidget {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation, secondaryAnimation) =>
-                                QuizScreen(quizCode: selectedTopic.quizCode,),
+                                InstructionScreen(quizCode: selectedTopic.quizCode,),
                             transitionsBuilder:
                                 (context, animation, secondaryAnimation, child) {
                               return FadeTransition(opacity: animation, child: child);
