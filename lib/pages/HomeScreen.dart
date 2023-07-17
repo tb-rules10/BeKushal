@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, unused_import, unused_field, unused_local_variable
 
 import 'dart:convert';
 import 'dart:io';
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     selectedValue = 'All Courses'; // Initialize selectedValue
     getDetails();
     readData().then((_) {
-      setState(() {}); // Update the state after getting details
+      setState(() {}); // Update the state after reading data
     });
     initializePreferences();
   }
@@ -205,7 +205,6 @@ class _HomeScreenState extends State<HomeScreen> {
     double streak_milestone =
         (context.read<UserProvider>().streak! / milestone);
 
-
     while (streak_milestone >= 1.0 && milestone < 56) {
       milestone = (milestone * 2);
       setState(() {
@@ -233,8 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
       attempted_milestone = 1.0;
     }
 
+// Return a WillPopScope widget to handle the back button press
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         SystemNavigator.pop();
         return false;
       },
@@ -245,6 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
+                // Widget to display user information and profile picture
                 children: [
                   Container(
                     height: 80,
@@ -264,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   List<String> nameParts = firstName.split(' ');
                                   firstName = nameParts.first;
                                 }
-    
+
                                 return Container(
                                   width: width * 0.70,
                                   padding: EdgeInsets.zero,
@@ -296,7 +298,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: GoogleFonts.outfit(
                                     textStyle: TextStyle(
                                   fontSize: 16,
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ))),
                           ],
                         ),
@@ -328,6 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 15,
                   ),
+                  // Widget to display user's streak and milestone progress
                   Container(
                     height: 70,
                     width: width,
@@ -377,12 +381,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 145,
                                                   child: Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Padding(
-                                                        padding: const EdgeInsets
-                                                                .fromLTRB(
-                                                            15.0, 8.0, 15.0, 8.0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                15.0,
+                                                                8.0,
+                                                                15.0,
+                                                                8.0),
                                                         child: Text(
                                                           "Attempt 1 question daily to continue your streak!",
                                                           textAlign:
@@ -390,8 +399,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontWeight:
-                                                                  FontWeight.w500,
-                                                              color: Colors.grey),
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color:
+                                                                  Colors.grey),
                                                         ),
                                                       ),
                                                       Row(
@@ -425,8 +436,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               value:
                                                                   streak_milestone,
                                                               backgroundColor:
-                                                                  Colors
-                                                                      .grey[300],
+                                                                  Colors.grey[
+                                                                      300],
                                                               waveColor:
                                                                   const Color(
                                                                       0xff00B0FF),
@@ -470,6 +481,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               thickness: 1,
                             ),
                           ),
+
+                          // Widget to display the user's attempted questions and milestone progress
                           Flexible(
                             child: Container(
                               constraints:
@@ -499,7 +512,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 125,
                                                   child: Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Row(
                                                         crossAxisAlignment:
@@ -535,8 +549,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               value:
                                                                   attempted_milestone, // Set the progress value between 0.0 and 1.0
                                                               backgroundColor:
-                                                                  Colors
-                                                                      .grey[300],
+                                                                  Colors.grey[
+                                                                      300],
                                                               waveColor:
                                                                   const Color(
                                                                       0xff00B0FF),
@@ -581,6 +595,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 25,
                   ),
+
+                  // Widget to display categories for learning                  
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -616,6 +632,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // child: ListView(
                             //   scrollDirection: Axis.horizontal,
                             children: [
+                              // Button to navigate to the "Introduction to Machine Learning" course
                               CoursesButton(
                                 onTap: () {
                                   Navigator.push(
@@ -636,6 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 topics: "6",
                                 width: width,
                               ),
+                              // Button to navigate to the "Artificial Intelligence" course
                               CoursesButton(
                                 onTap: () {
                                   Navigator.push(
@@ -663,8 +681,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 25,
                   ),
+
+                  // Widget to display recent attempts section with filters
                   LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
                       return Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Row(
@@ -672,6 +693,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             FittedBox(
                               child: Text(
+                                // Display the selected filter value or "No Recent Attempts"
                                 allAttempts.isEmpty == true
                                     ? "No Recent Attempts"
                                     : "Recent Attempts",
@@ -679,13 +701,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textStyle: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).colorScheme.secondary,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ),
                             ),
                             IconButton(
                                 onPressed: () {
+                                  // Refresh the page when the refresh button is pressed
                                   setState(() {
                                     Navigator.pushReplacement(
                                       context,
@@ -709,12 +733,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(
                               width: 20,
                             ),
+                            // Dropdown widget to filter attempts by course category
                             FittedBox(
                               child: DropdownButtonWidget(
                                 items: [
-                              "All Courses",
-                              "Machine Learning",
-                              "Artificial Intelligence"
+                                  "All Courses",
+                                  "Machine Learning",
+                                  "Artificial Intelligence"
                                 ],
                                 onChanged: onDropdownValueChanged,
                               ),
@@ -724,10 +749,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
+                  // Widget to display the list of recent attempts
                   SingleChildScrollView(
                     physics: NeverScrollableScrollPhysics(),
                     child: Column(
                       children: List.generate(
+                         // Generate the list of attempts based on the selected filter value
                         selectedValue == 'All Courses'
                             ? allAttempts.length
                             : (selectedValue == 'Machine Learning'
@@ -746,9 +773,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             quizCode = aiAttempts[index];
                             proficiency = aiFinal[index];
                           }
-    
+                           // Display the topic name and proficiency level for each attempt
                           return FutureBuilder<String>(
-                            future: getTopicNameFromQuizCode(allTopics, quizCode),
+                            future:
+                                getTopicNameFromQuizCode(allTopics, quizCode),
                             builder: (BuildContext context,
                                 AsyncSnapshot<String> snapshot) {
                               if (snapshot.connectionState ==

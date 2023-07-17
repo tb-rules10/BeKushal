@@ -20,6 +20,7 @@ class _OurTeamScreenState extends State<OurTeamScreen> {
     loadTeamData();
   }
 
+// Reading data from team_data.json
   Future<void> loadTeamData() async {
     String jsonData = await DefaultAssetBundle.of(context)
         .loadString('assets/data/team_data.json');
