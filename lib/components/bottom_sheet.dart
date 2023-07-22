@@ -174,6 +174,7 @@ class BottomSheetMenu extends StatelessWidget {
                       borderRadius: 10,
                       backgroundColor: (selectedTopic.comingSoon) ? const Color(0xff828282) : Theme.of(context).colorScheme.tertiary,
                       onPressed: (selectedTopic.comingSoon) ? (){} :(){
+                        // Redirect to Quiz
                         Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(

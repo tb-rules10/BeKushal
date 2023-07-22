@@ -24,24 +24,30 @@ class _ExploreScreenState extends State<ExploreScreen> {
   List<Topics> allTopics = [];
   List<Topics> searchResults = [];
   List<Topics> recentSearches = [];
-
+  // Search Algorithm
   void searchTopics(String query) async{
+    List<String> queries = query.split(' ');
     List<Topics> results = [];
-    for(var topic in allTopics){
-      List<String> searchTerms = topic.searchTerms.split(' ');
-      if (searchTerms.contains(query.trim())) {
-        results.add(topic);
+    queries.forEach((element) {
+      for(var topic in allTopics){
+        List<String> searchTerms = topic.searchTerms.split(' ');
+        if (searchTerms.contains(element)) {
+          results.add(topic);
+        }
       }
-    }
+    });
     setState(() {
       searchResults = results;
     });
   }
+
   // Store all topics in a variable to display them
   Future<void> readData() async{
+    // read data from json
     String jsonString = await rootBundle.loadString('assets/data/inputData.json');
     List<Topics> topics = [];
     final jsonData = json.decode(jsonString) as List<dynamic>;
+    // map json file as a List<Course>
     allCourses = jsonData.map<Course>((item){
       var course = Course.fromJson(item);
       course.topics.forEach((element) {topics.add(element);});
@@ -49,6 +55,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }).toList();
     allTopics = topics;
   }
+
   // Save recent searches in local storage
   Future<void> saveRecentSearches() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,6 +65,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }
     prefs.setStringList('recentSearches', data);
   }
+
   // Load recent searches for local storage
   Future<void> getRecentSearches() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -164,19 +172,18 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         }
                         else{
                           showResults = true;
-                          searchTopics(query.trimLeft().toUpperCase());
+                          searchTopics(query.trim().toUpperCase());
                         }
                       });
                     },
                   ),
-
                   Visibility(
                     visible: (recentSearches.isNotEmpty || showResults),
                     child: SizedBox(
                       height: (showResults) ? 18 : 15,
                     ),
                   ),
-
+                  // Show recent searches
                   Visibility(
                     visible: showResults,
                     child: Container(
