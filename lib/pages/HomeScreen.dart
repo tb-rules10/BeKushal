@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDropdownValueChanged(String value) {
-    // Do something with the selected value
     selectedValue = value;
     setState(() {});
     // Perform setState or any other action based on the new value
@@ -105,33 +104,47 @@ class _HomeScreenState extends State<HomeScreen> {
     return ""; // Return a default value if the quiz code is not found
   }
 
+// Function to check the user's login streak based on their last login date.
   Future<void> _checkLoginStreak() async {
+    // Get an instance of SharedPreferences.
     var prefs = await SharedPreferences.getInstance();
 
+    // Retrieve the last login date from SharedPreferences.
     final lastLoginDate = prefs.getString('lastLoginDate');
     final today = DateTime.now();
 
+    // Check if the last login date exists in SharedPreferences.
     if (lastLoginDate != null) {
+      // Parse the last login date string into a DateTime object.
       final lastLoginDateTime = DateTime.parse(lastLoginDate);
+
+      // Check if the last login date is the same day as today.
       final isSameDay = lastLoginDateTime.year == today.year &&
           lastLoginDateTime.month == today.month &&
           lastLoginDateTime.day == today.day;
 
+      // If the last login is on the same day, set the _hasLoggedInToday flag to true.
       if (isSameDay) {
         setState(() {
           _hasLoggedInToday = true;
         });
       } else {
+        // If the last login is not on the same day, calculate the difference in days between today and the last login.
         final difference = today.difference(lastLoginDateTime).inDays;
+
+        // If the difference is greater than 1 (meaning there were days of inactivity), reset the login streak to 0.
         if (difference > 1) {
           prefs.setInt('streak', 0);
+
+          // Update the login streak value in the UserProvider.
           UserProvider userProvider =
-              Provider.of<UserProvider>(context, listen: false);
+          Provider.of<UserProvider>(context, listen: false);
           userProvider.setStreak(0);
         }
       }
     }
   }
+
 
   Future<void> initializePreferences() async {
     prefs = await SharedPreferences.getInstance();
@@ -153,6 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // Function to retrieve user details and quiz data from SharedPreferences.
   Future<void> getDetails() async {
     // username = username ?? "Yoru";
     // photoUrl = photoUrl ?? "https://dotesports.com/wp-content/uploads/2021/01/12162418/Yoru.png";
@@ -164,9 +178,12 @@ class _HomeScreenState extends State<HomeScreen> {
     int index = name.indexOf(" ");
     if (index != -1) name = name.substring(0, name.indexOf(" "));
     _name = name;
+
+    // Check the user's login streak and update the provider with the streak value.
     _checkLoginStreak();
     var streakDays = prefs.getInt('streak');
     context.read<UserProvider>().setStreak(streakDays!);
+
     var attempt = prefs.getInt('attempted');
     context.read<UserProvider>().setAttempted(attempt!);
 

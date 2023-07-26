@@ -13,15 +13,20 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
 
+// Create a PageController to control the page navigation in the onboarding screen.
   final PageController _pageController = PageController(initialPage: 0);
+
+// Store the current page index for the onboarding screen.
   int _currentPage = 0;
 
+  // Function to handle page change event when swiping between onboarding pages.
   void _onPageChanged(int page) {
     setState(() {
       _currentPage = page;
     });
   }
 
+  // List of data for the onboarding pages, each represented as a Map with keys: "image", "headingtext", and "contenttext".
   List<Map<String, String>> splashData = [
     { "image": "assets/images/Onboarding1.png",
       "headingtext": 'Effective Self-Shiksha',
@@ -103,6 +108,8 @@ class OnBoardingPage extends StatelessWidget {
   final String image;
   final String headingtext;
   final String contenttext;
+
+  // Create a constructor to initialize the required properties.
   const OnBoardingPage({required this.image,required this.headingtext, required this.contenttext});
 
   @override

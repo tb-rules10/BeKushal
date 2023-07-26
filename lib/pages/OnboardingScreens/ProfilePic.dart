@@ -39,15 +39,19 @@ class _ProfilePicState extends State<ProfilePic> {
     initializeSharedPreferences();
   }
 
+  // Function to initialize SharedPreferences and load the user's profile picture if available.
   Future<void> initializeSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
     profilePicturePath = prefs.getString('profilePicturePath') ?? '';
+
+    // If the profile picture path is not empty, update the PicProvider and trigger a state update.
     if (profilePicturePath.isNotEmpty) {
       context.read<PicProvider>().setImageFile(File(profilePicturePath));
       setState(() {});
     }
   }
 
+  // Function to pick and set the user's profile picture from the gallery.
   Future<void> _pickProfilePicture() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);

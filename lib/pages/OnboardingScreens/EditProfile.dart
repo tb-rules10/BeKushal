@@ -54,6 +54,7 @@ class _EditProfileState extends State<EditProfile> {
     super.dispose();
   }
 
+  // Function to load user profile data from SharedPreferences and update state and provider.
   void loadProfileData(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     profilePicturePath = prefs.getString('profilePicturePath') ?? '';
@@ -77,6 +78,7 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
+  // Function to update user profile data in SharedPreferences and update the provider.
   void updateProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('name', _nameController.text);
@@ -93,6 +95,7 @@ class _EditProfileState extends State<EditProfile> {
 
   }
 
+  // Function to delete the user account data from SharedPreferences and provider, and navigate back to the onboarding screen.
   void _deleteAccount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -104,27 +107,36 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
+  // Function to toggle the edit state of the name field.
   void toggleNameEdit() {
     setState(() {
       isNameEditable = !isNameEditable;
     });
   }
+
+
+// Function to toggle the edit state of the email field.
   void toggleEmailEdit() {
     setState(() {
       isEmailEditable = !isEmailEditable;
     });
   }
+
+// Function to toggle the edit state of the mobile number field.
   void toggleMobileEdit() {
     setState(() {
       isMobileEditable = !isMobileEditable;
     });
   }
+
+// Function to toggle the edit state of the occupation field.
   void toggleOccupationEdit() {
     setState(() {
       isOccupationEditable = !isOccupationEditable;
     });
   }
 
+  // Function to show a delete confirmation dialog when the user chooses to delete their account.
   Future<void> _showDeleteConfirmationDialog() async {
     return showDialog<void>(
       context: context,
@@ -298,8 +310,12 @@ class _EditProfileState extends State<EditProfile> {
                       enabled: true,
                       readOnly: !isEmailEditable,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null || value.trim().isEmpty) {
                           return 'Please enter your email';
+                        }
+                        final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+                        if (!emailRegex.hasMatch(value.trim())) {
+                          return 'Please enter a valid email address.\n Example: john@example.com';
                         }
                         return null;
                       },
@@ -407,6 +423,10 @@ class _EditProfileState extends State<EditProfile> {
                         DropdownMenuItem(
                           value: 'Working Professional',
                           child: Text('Working Professional'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'Others',
+                          child: Text('Others'),
                         ),
                       ],
                       onChanged: isOccupationEditable ? (value) {

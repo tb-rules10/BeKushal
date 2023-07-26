@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../components/customRadio.dart';
 
+// UserProvider to save user info
 class UserProvider extends ChangeNotifier {
   String? _name;
   String? _email;
@@ -14,7 +15,6 @@ class UserProvider extends ChangeNotifier {
   String? _gender;
   int? _streak = 0;
   int? _attempted = 0;
-  // List<String> _stats = ["Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1","Info1"];
 
   String? get name => _name;
   String? get email => _email;
@@ -23,7 +23,6 @@ class UserProvider extends ChangeNotifier {
   String? get gender => _gender;
   int? get streak => _streak;
   int? get attempted => _attempted;
-  // List<String> get stats => _stats;
 
   void setName(String name) {
     _name = name;
@@ -60,11 +59,6 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setStats(List<String> array) {
-    // _stats = array;
-    notifyListeners();
-  }
-
   void deleteUserInformation() {
     _name = null;
     _email = null;
@@ -72,7 +66,6 @@ class UserProvider extends ChangeNotifier {
     _occupation = null;
     _streak = 0;
     _attempted = 0;
-    // _stats.clear();
     notifyListeners();
   }
 }
@@ -102,10 +95,12 @@ class _UserFormState extends State<UserForm> {
     initializeSharedPreferences();
   }
 
+  // Function to initialize SharedPreferences.
   Future<void> initializeSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
   }
 
+  // Function to mark the onboarding as completed and save user data in SharedPreferences and the provider.
   Future<void> OnboardingCompleted(BuildContext context) async {
     try{
       await prefs.setBool('onboardingCompleted', true);
@@ -314,6 +309,10 @@ class _UserFormState extends State<UserForm> {
                               DropdownMenuItem(
                                 value: 'Working Professional',
                                 child: Text('Working Professional'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'Others',
+                                child: Text('Others'),
                               ),
                             ],
                             validator: (value) {

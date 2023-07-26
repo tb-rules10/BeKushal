@@ -524,7 +524,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             direction: Axis.vertical,
                             internalPadding: 10,
                             padding: const EdgeInsetsDirectional.symmetric(horizontal: 30, vertical: 20),
-                            stepRadius: 50,
+                            stepRadius: 18,
                             finishedStepTextColor: Colors.blue,
                             activeStepBorderColor: Colors.blue,
                             activeStepBackgroundColor: Colors.grey,
@@ -548,7 +548,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   'Beginner Level',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
-                                    fontSize: 18,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -566,7 +566,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   'Intermediate Level',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
-                                    fontSize: 18,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -584,7 +584,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                   'Expert Level',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
-                                    fontSize: 18,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
