@@ -14,14 +14,14 @@ class MyWidget extends StatelessWidget {
   bool medal1 = false;
   bool medal2 = false;
   bool medal3 = false;
-  var levels = ['Start', 'Beginner', 'Intermediate', 'Expert'];
-  late String currentLevel;
+  var levels = ['Level 0', 'Level 1', 'Level 2', 'level 3'];
+  late String currentLevel; // Holds the current achievement level text
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
+    // Determine the current achievement level and set medal visibility accordingly
     if (level.truncate() == 0) {
       currentLevel = levels[0];
     } else if (level.truncate() == 1) {
@@ -46,6 +46,7 @@ class MyWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Display the achievement text
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(text!, style: GoogleFonts.inter(
@@ -62,6 +63,7 @@ class MyWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Display the current achievement level
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
@@ -69,6 +71,7 @@ class MyWidget extends StatelessWidget {
                   ),
                   Row(
                     children: [
+                      // Display achievement medals based on level achieved
                       Visibility(
                   visible: medal1,
                   child: Container(
