@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Custom StatelessWidget class for displaying achievements related to daily streaks
 class achievementsDailyStreak extends StatelessWidget {
   int? streak;
   achievementsDailyStreak({super.key, required this.streak});
@@ -38,6 +39,7 @@ class achievementsDailyStreak extends StatelessWidget {
     );
   }
 }
+// Custom StatelessWidget class for displaying achievements related to attempted questions
 class achievementsAttemps extends StatelessWidget {
   int? attempted;
   achievementsAttemps({super.key, required this.attempted});
