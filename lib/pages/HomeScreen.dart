@@ -801,6 +801,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // Show a loading indicator while the future is being resolved
                                 return CircularProgressIndicator();
                               } else if (snapshot.hasData) {
+                                print(snapshot);
                                 // The future completed successfully, display the result
                                 return Padding(
                                   padding:
