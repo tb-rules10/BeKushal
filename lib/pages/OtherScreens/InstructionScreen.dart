@@ -155,7 +155,7 @@ class _InstructionPageState extends State<InstructionPage> {
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30),
                         child: Text(
-                          'Lorem ipsum dolor sit amet, congue. Nulla dignissim nisi a neque lacinia eleifend. Vestibulum sollicitudin est eu risus fermentum hendrerit. Morbi nec mauris eu lorem convallis faucibus. Donec vestibulum congue lectus a imperdiet. Aliquam pharetra dui quis nulla luctus, ac congue urna lacinia. Aliquam dapibus pharetra leo, a egestas leo auctor at. Proin at felis et justo interdum egestas. Quisque vitae metus rutrum, ultricies massa eget, facilisis metus.',
+                          'Welcome to the practice MCQ test! This test is designed to help you practice and assess your knowledge. The instructions are simple: aim to make as few mistakes as possible to earn more points. The scoring system is based on the number of mistakes made. If you answer the question correctly in the first attempt, you will earn 4 points, while answering correctly in your second attempt will give you 2 points. However, if you make more than two mistakes, no points will be awarded for that question.',
                           style: GoogleFonts.outfit(
                             textStyle: TextStyle(
                               fontSize: 18.0,
